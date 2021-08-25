@@ -1,0 +1,10 @@
+<RCC>
+    <qresource prefix="/resources/tabs/icons">
+        <file>SQL.png</file>
+        <file>SAE-J1939.jpg</file>
+        <file>USB.png</file>
+        <file>logging.png</file>
+        <file>Calibration.png</file>
+        <file>View.png</file>
+    </qresource>
+</RCC>

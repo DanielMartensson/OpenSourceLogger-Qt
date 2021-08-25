@@ -1,0 +1,1378 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1295</width>
+    <height>689</height>
+   </rect>
+  </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
+  </property>
+  <property name="windowTitle">
+   <string>OpenSourceLogger</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QHBoxLayout" name="horizontalLayout_2">
+    <item>
+     <widget class="QTabWidget" name="tabWidget">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="tabShape">
+       <enum>QTabWidget::Rounded</enum>
+      </property>
+      <property name="currentIndex">
+       <number>2</number>
+      </property>
+      <property name="iconSize">
+       <size>
+        <width>50</width>
+        <height>50</height>
+       </size>
+      </property>
+      <property name="tabsClosable">
+       <bool>false</bool>
+      </property>
+      <property name="movable">
+       <bool>false</bool>
+      </property>
+      <widget class="QWidget" name="tab">
+       <attribute name="icon">
+        <iconset>
+         <selectedoff>:/resources/tabs/icons/SQL.png</selectedoff>
+         <selectedon>:/resources/tabs/icons/SQL.png</selectedon>
+        </iconset>
+       </attribute>
+       <attribute name="title">
+        <string/>
+       </attribute>
+       <layout class="QGridLayout" name="gridLayout_17">
+        <item row="0" column="0">
+         <widget class="QGroupBox" name="groupBox_5">
+          <property name="title">
+           <string>SQL connection</string>
+          </property>
+          <layout class="QGridLayout" name="gridLayout_16">
+           <item row="7" column="1">
+            <widget class="QPushButton" name="connect_sql_pushButton">
+             <property name="text">
+              <string>Connect SQL</string>
+             </property>
+            </widget>
+           </item>
+           <item row="6" column="0">
+            <widget class="QCheckBox" name="remember_database_settings_checkBox">
+             <property name="text">
+              <string>Remember everything if connected</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="0">
+            <widget class="QLabel" name="label_7">
+             <property name="text">
+              <string>SQL schema name:</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="1">
+            <widget class="QLineEdit" name="sql_hostname_lineEdit"/>
+           </item>
+           <item row="1" column="0">
+            <widget class="QLabel" name="label_2">
+             <property name="text">
+              <string>SQL Port:</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="0">
+            <widget class="QLabel" name="label">
+             <property name="text">
+              <string>SQL hostname:</string>
+             </property>
+            </widget>
+           </item>
+           <item row="5" column="0">
+            <widget class="QLabel" name="label_14">
+             <property name="text">
+              <string>SQL password:</string>
+             </property>
+            </widget>
+           </item>
+           <item row="6" column="1">
+            <widget class="QLabel" name="sql_status_label">
+             <property name="text">
+              <string>SQL status:</string>
+             </property>
+            </widget>
+           </item>
+           <item row="4" column="1">
+            <widget class="QLineEdit" name="sql_username_lineEdit"/>
+           </item>
+           <item row="4" column="0">
+            <widget class="QLabel" name="label_8">
+             <property name="text">
+              <string>SQL username:</string>
+             </property>
+            </widget>
+           </item>
+           <item row="5" column="1">
+            <widget class="QLineEdit" name="sql_password_lineEdit">
+             <property name="echoMode">
+              <enum>QLineEdit::Password</enum>
+             </property>
+            </widget>
+           </item>
+           <item row="7" column="0">
+            <widget class="QPushButton" name="disconnect_sql_pushButton">
+             <property name="enabled">
+              <bool>false</bool>
+             </property>
+             <property name="text">
+              <string>Disconnect SQL</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="1">
+            <widget class="QLineEdit" name="sql_port_lineEdit">
+             <property name="echoMode">
+              <enum>QLineEdit::Normal</enum>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="1">
+            <widget class="QLineEdit" name="sql_schema_name_lineEdit"/>
+           </item>
+           <item row="3" column="0">
+            <widget class="QLabel" name="label_3">
+             <property name="text">
+              <string>SQL table name:</string>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="1">
+            <widget class="QLineEdit" name="sql_table_name_lineEdit"/>
+           </item>
+          </layout>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="tab_5">
+       <attribute name="icon">
+        <iconset>
+         <selectedoff>:/resources/tabs/icons/USB.png</selectedoff>
+         <selectedon>:/resources/tabs/icons/USB.png</selectedon>
+        </iconset>
+       </attribute>
+       <attribute name="title">
+        <string/>
+       </attribute>
+       <layout class="QGridLayout" name="gridLayout_15">
+        <item row="0" column="0">
+         <widget class="QGroupBox" name="groupBox_6">
+          <property name="title">
+           <string>USB connection</string>
+          </property>
+          <layout class="QGridLayout" name="gridLayout_13">
+           <item row="6" column="0">
+            <widget class="QCheckBox" name="remember_usb_settings_checkBox">
+             <property name="text">
+              <string>Remember everything</string>
+             </property>
+            </widget>
+           </item>
+           <item row="8" column="0">
+            <widget class="QLabel" name="label_18">
+             <property name="text">
+              <string>USB status:</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="0">
+            <widget class="QLabel" name="label_17">
+             <property name="text">
+              <string>USB baudrate:</string>
+             </property>
+            </widget>
+           </item>
+           <item row="4" column="2">
+            <widget class="QComboBox" name="usb_stop_bits_comboBox"/>
+           </item>
+           <item row="3" column="2">
+            <widget class="QComboBox" name="usb_parity_comboBox"/>
+           </item>
+           <item row="0" column="2">
+            <widget class="QComboBox" name="usb_ports_comboBox"/>
+           </item>
+           <item row="1" column="2">
+            <widget class="QComboBox" name="usb_baudrate_comboBox"/>
+           </item>
+           <item row="8" column="2">
+            <widget class="QLineEdit" name="usb_status_lineEdit">
+             <property name="readOnly">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item row="6" column="2">
+            <widget class="QPushButton" name="scan_usb_ports_pushButton">
+             <property name="text">
+              <string>Scan USB ports</string>
+             </property>
+            </widget>
+           </item>
+           <item row="7" column="2">
+            <widget class="QPushButton" name="connect_usb_pushButton">
+             <property name="text">
+              <string>Connect USB</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="0">
+            <widget class="QLabel" name="label_4">
+             <property name="text">
+              <string>USB ports:</string>
+             </property>
+            </widget>
+           </item>
+           <item row="7" column="0">
+            <widget class="QPushButton" name="disconnect_usb_pushButton">
+             <property name="enabled">
+              <bool>false</bool>
+             </property>
+             <property name="text">
+              <string>Disconnect USB</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="2">
+            <widget class="QComboBox" name="usb_data_bits_comboBox"/>
+           </item>
+           <item row="5" column="2">
+            <widget class="QComboBox" name="usb_flow_control_comboBox"/>
+           </item>
+           <item row="2" column="0">
+            <widget class="QLabel" name="label_5">
+             <property name="text">
+              <string>USB data bits:</string>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="0">
+            <widget class="QLabel" name="label_6">
+             <property name="text">
+              <string>USB parity:</string>
+             </property>
+            </widget>
+           </item>
+           <item row="4" column="0">
+            <widget class="QLabel" name="label_9">
+             <property name="text">
+              <string>USB stop bits:</string>
+             </property>
+            </widget>
+           </item>
+           <item row="5" column="0">
+            <widget class="QLabel" name="label_10">
+             <property name="text">
+              <string>USB flow control:</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="tab_4">
+       <attribute name="icon">
+        <iconset>
+         <selectedoff>:/resources/tabs/icons/SAE-J1939.jpg</selectedoff>
+         <selectedon>:/resources/tabs/icons/SAE-J1939.jpg</selectedon>
+        </iconset>
+       </attribute>
+       <attribute name="title">
+        <string/>
+       </attribute>
+       <layout class="QGridLayout" name="gridLayout_14">
+        <item row="0" column="0">
+         <widget class="QGroupBox" name="groupBox_3">
+          <property name="title">
+           <string>Transmit to other ECU</string>
+          </property>
+          <layout class="QGridLayout" name="gridLayout_10">
+           <item row="0" column="0">
+            <widget class="QGroupBox" name="groupBox_4">
+             <property name="title">
+              <string>Requests</string>
+             </property>
+             <layout class="QGridLayout" name="gridLayout_9">
+              <item row="2" column="0">
+               <widget class="QLabel" name="label_19">
+                <property name="text">
+                 <string>ECU destination address:</string>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="0">
+               <widget class="QLabel" name="label_21">
+                <property name="text">
+                 <string>Select predefined request:</string>
+                </property>
+               </widget>
+              </item>
+              <item row="4" column="1">
+               <widget class="QPushButton" name="send_predefined_request_pushButton">
+                <property name="text">
+                 <string>Send predefined request</string>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="1">
+               <widget class="QComboBox" name="predefined_request_comboBox"/>
+              </item>
+              <item row="2" column="1">
+               <widget class="QLineEdit" name="ecu_destination_address_lineEdit"/>
+              </item>
+              <item row="3" column="1">
+               <widget class="QLineEdit" name="ecu_source_address_lineEdit"/>
+              </item>
+              <item row="3" column="0">
+               <widget class="QLabel" name="label_11">
+                <property name="text">
+                 <string>ECU source address:</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+           </item>
+           <item row="1" column="0">
+            <widget class="QGroupBox" name="groupBox">
+             <property name="title">
+              <string>Commands</string>
+             </property>
+             <layout class="QGridLayout" name="gridLayout_2">
+              <item row="0" column="0">
+               <widget class="QPushButton" name="send_auxiliary_valve_command_pushButton">
+                <property name="text">
+                 <string>Send Auxiliary Valve Command</string>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="0">
+               <widget class="QPushButton" name="send_general_purpose_valve_command_pushButton">
+                <property name="text">
+                 <string>Send General Purpose Valve Command</string>
+                </property>
+               </widget>
+              </item>
+              <item row="2" column="0">
+               <widget class="QPushButton" name="send_commanded_address_pushButton">
+                <property name="text">
+                 <string>Send Commanded Address</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item row="0" column="1" rowspan="2">
+         <widget class="QGroupBox" name="groupBox_2">
+          <property name="title">
+           <string>Receive from other ECU</string>
+          </property>
+          <layout class="QGridLayout" name="gridLayout_12">
+           <item row="0" column="0">
+            <widget class="QGroupBox" name="groupBox_7">
+             <property name="title">
+              <string>Looping terminal</string>
+             </property>
+             <layout class="QGridLayout" name="gridLayout_3">
+              <item row="0" column="0">
+               <widget class="QTableView" name="looping_terminal_tableView"/>
+              </item>
+             </layout>
+            </widget>
+           </item>
+           <item row="1" column="0">
+            <widget class="QGroupBox" name="groupBox_8">
+             <property name="title">
+              <string>Message explanation</string>
+             </property>
+             <layout class="QGridLayout" name="gridLayout_11">
+              <item row="0" column="0">
+               <widget class="QTextEdit" name="message_explanation_textEdit"/>
+              </item>
+             </layout>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <widget class="QGroupBox" name="groupBox_9">
+          <property name="title">
+           <string>Listen for messages</string>
+          </property>
+          <layout class="QVBoxLayout" name="verticalLayout">
+           <item>
+            <widget class="QPushButton" name="start_listen_CAN_pushButton">
+             <property name="text">
+              <string>Start listen CAN</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="stop_listen_CAN_pushButton">
+             <property name="enabled">
+              <bool>false</bool>
+             </property>
+             <property name="text">
+              <string>Stop listen CAN</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="CAN_status_label">
+             <property name="text">
+              <string>CAN status: Listener is stopped</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="tab_2">
+       <attribute name="icon">
+        <iconset>
+         <selectedoff>:/resources/tabs/icons/Calibration.png</selectedoff>
+         <selectedon>:/resources/tabs/icons/Calibration.png</selectedon>
+        </iconset>
+       </attribute>
+       <attribute name="title">
+        <string/>
+       </attribute>
+       <layout class="QGridLayout" name="gridLayout_8">
+        <item row="0" column="0">
+         <widget class="QGroupBox" name="groupBox_12">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="title">
+           <string>Control</string>
+          </property>
+          <layout class="QGridLayout" name="gridLayout_6">
+           <item row="0" column="0">
+            <widget class="QPushButton" name="pushButton_14">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="text">
+              <string>Modify</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="1">
+            <widget class="QPushButton" name="pushButton_13">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="text">
+              <string>Add new</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="2">
+            <widget class="QPushButton" name="pushButton_15">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="text">
+              <string>Delete</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <widget class="QGroupBox" name="groupBox_10">
+          <property name="title">
+           <string>Calibrations</string>
+          </property>
+          <layout class="QGridLayout" name="gridLayout_7">
+           <item row="0" column="0">
+            <widget class="QListView" name="listView_2"/>
+           </item>
+          </layout>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="tab_3">
+       <attribute name="icon">
+        <iconset>
+         <selectedoff>:/resources/tabs/icons/logging.png</selectedoff>
+         <selectedon>:/resources/tabs/icons/logging.png</selectedon>
+        </iconset>
+       </attribute>
+       <attribute name="title">
+        <string/>
+       </attribute>
+       <layout class="QGridLayout" name="gridLayout_63">
+        <item row="0" column="0">
+         <widget class="QGroupBox" name="groupBox_11">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="title">
+           <string>Log</string>
+          </property>
+          <layout class="QHBoxLayout" name="horizontalLayout">
+           <item>
+            <widget class="QLabel" name="label_39">
+             <property name="text">
+              <string>Calibration:</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QComboBox" name="comboBox_4">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="pushButton_16">
+             <property name="text">
+              <string>Start</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="pushButton_17">
+             <property name="text">
+              <string>Stop</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_23">
+             <property name="text">
+              <string>Log number:</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLineEdit" name="lineEdit_18"/>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <widget class="QGroupBox" name="groupBox_25">
+          <property name="title">
+           <string>Enables</string>
+          </property>
+          <layout class="QGridLayout" name="gridLayout_60">
+           <item row="0" column="3">
+            <widget class="QCheckBox" name="checkBox_10">
+             <property name="text">
+              <string>DI3</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="16">
+            <widget class="QCheckBox" name="checkBox_55">
+             <property name="text">
+              <string>AO0</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="10">
+            <widget class="QCheckBox" name="checkBox_129">
+             <property name="text">
+              <string>PWM2</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="19">
+            <widget class="QCheckBox" name="checkBox_22">
+             <property name="text">
+              <string>AO2</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="0">
+            <widget class="QCheckBox" name="checkBox_127">
+             <property name="text">
+              <string>DI0</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="20">
+            <widget class="QCheckBox" name="checkBox_53">
+             <property name="text">
+              <string>AI0</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="6">
+            <widget class="QCheckBox" name="checkBox_58">
+             <property name="text">
+              <string>DI6</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="17">
+            <widget class="QCheckBox" name="checkBox_57">
+             <property name="text">
+              <string>AO1</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="13">
+            <widget class="QCheckBox" name="checkBox_134">
+             <property name="text">
+              <string>PWM5</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="8">
+            <widget class="QCheckBox" name="checkBox_91">
+             <property name="text">
+              <string>PWM0</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="14">
+            <widget class="QCheckBox" name="checkBox_133">
+             <property name="text">
+              <string>PWM6</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="12">
+            <widget class="QCheckBox" name="checkBox_15">
+             <property name="text">
+              <string>PWM4</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="11">
+            <widget class="QCheckBox" name="checkBox_128">
+             <property name="text">
+              <string>PWM3</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="9">
+            <widget class="QCheckBox" name="checkBox_21">
+             <property name="text">
+              <string>PWM1</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="5">
+            <widget class="QCheckBox" name="checkBox_135">
+             <property name="text">
+              <string>DI5</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="2">
+            <widget class="QCheckBox" name="checkBox_24">
+             <property name="text">
+              <string>DI2</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="7">
+            <widget class="QCheckBox" name="checkBox_56">
+             <property name="text">
+              <string>DI7</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="15">
+            <widget class="QCheckBox" name="checkBox_14">
+             <property name="text">
+              <string>PWM7</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="1">
+            <widget class="QCheckBox" name="checkBox_54">
+             <property name="text">
+              <string>DI1</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="4">
+            <widget class="QCheckBox" name="checkBox_17">
+             <property name="text">
+              <string>DI4</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="0">
+            <widget class="QCheckBox" name="checkBox_27">
+             <property name="text">
+              <string>AI1</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="1">
+            <widget class="QCheckBox" name="checkBox_20">
+             <property name="text">
+              <string>AI2</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="2">
+            <widget class="QCheckBox" name="checkBox_11">
+             <property name="text">
+              <string>AI3</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="3">
+            <widget class="QCheckBox" name="checkBox_130">
+             <property name="text">
+              <string>AI4</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="4">
+            <widget class="QCheckBox" name="checkBox_131">
+             <property name="text">
+              <string>AI5</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="5">
+            <widget class="QCheckBox" name="checkBox_23">
+             <property name="text">
+              <string>AI6</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="6">
+            <widget class="QCheckBox" name="checkBox_19">
+             <property name="text">
+              <string>AI7</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="7">
+            <widget class="QCheckBox" name="checkBox_26">
+             <property name="text">
+              <string>AI8</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="8">
+            <widget class="QCheckBox" name="checkBox_12">
+             <property name="text">
+              <string>AI9</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="9">
+            <widget class="QCheckBox" name="checkBox_18">
+             <property name="text">
+              <string>AI10</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="10">
+            <widget class="QCheckBox" name="checkBox_132">
+             <property name="text">
+              <string>AI11</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="11">
+            <widget class="QCheckBox" name="checkBox_9">
+             <property name="text">
+              <string>E0</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="12">
+            <widget class="QCheckBox" name="checkBox_51">
+             <property name="text">
+              <string>E1</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="13">
+            <widget class="QCheckBox" name="checkBox_52">
+             <property name="text">
+              <string>F0</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="14">
+            <widget class="QCheckBox" name="checkBox_16">
+             <property name="text">
+              <string>F1</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="15">
+            <widget class="QCheckBox" name="checkBox_92">
+             <property name="text">
+              <string>DAI0</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="16">
+            <widget class="QCheckBox" name="checkBox_13">
+             <property name="text">
+              <string>DAI1</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="17">
+            <widget class="QCheckBox" name="checkBox_25">
+             <property name="text">
+              <string>DAI2</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="19">
+            <widget class="QCheckBox" name="checkBox_136">
+             <property name="text">
+              <string>DAI3</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="20">
+            <widget class="QCheckBox" name="checkBox_90">
+             <property name="text">
+              <string>DAI4</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item row="2" column="0">
+         <widget class="QGroupBox" name="groupBox_66">
+          <property name="title">
+           <string>Charts</string>
+          </property>
+          <layout class="QGridLayout" name="gridLayout_61">
+           <item row="0" column="0">
+            <widget class="QFrame" name="verticalFrame1">
+             <layout class="QVBoxLayout" name="verticalLayout_6"/>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item row="3" column="0">
+         <widget class="QGroupBox" name="groupBox_65">
+          <property name="title">
+           <string>Sliders</string>
+          </property>
+          <layout class="QGridLayout" name="gridLayout_62">
+           <item row="0" column="0">
+            <widget class="QFrame" name="verticalFrame">
+             <layout class="QVBoxLayout" name="verticalLayout_5"/>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="tab_6">
+       <attribute name="icon">
+        <iconset>
+         <selectedoff>:/resources/tabs/icons/View.png</selectedoff>
+         <selectedon>:/resources/tabs/icons/View.png</selectedon>
+        </iconset>
+       </attribute>
+       <attribute name="title">
+        <string/>
+       </attribute>
+       <layout class="QGridLayout" name="gridLayout_66">
+        <item row="0" column="0">
+         <widget class="QGroupBox" name="groupBox_67">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="title">
+           <string>Log</string>
+          </property>
+          <layout class="QHBoxLayout" name="horizontalLayout_8">
+           <item>
+            <widget class="QLabel" name="label_88">
+             <property name="text">
+              <string>Log number</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QComboBox" name="comboBox_21">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="pushButton_82">
+             <property name="text">
+              <string>Check samples</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_89">
+             <property name="text">
+              <string>Samples:</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLineEdit" name="lineEdit_65"/>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_90">
+             <property name="text">
+              <string>From sample:</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLineEdit" name="lineEdit_66"/>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_91">
+             <property name="text">
+              <string>To sample:</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLineEdit" name="lineEdit_67"/>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_92">
+             <property name="text">
+              <string>With space sample:</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLineEdit" name="lineEdit_68"/>
+           </item>
+           <item>
+            <widget class="QPushButton" name="pushButton_83">
+             <property name="text">
+              <string>Plot</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="pushButton_84">
+             <property name="text">
+              <string>Dowload as CSV</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <widget class="QGroupBox" name="groupBox_68">
+          <property name="title">
+           <string>Enables</string>
+          </property>
+          <layout class="QGridLayout" name="gridLayout_64">
+           <item row="0" column="3">
+            <widget class="QCheckBox" name="checkBox_137">
+             <property name="text">
+              <string>DI3</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="16">
+            <widget class="QCheckBox" name="checkBox_138">
+             <property name="text">
+              <string>AO0</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="10">
+            <widget class="QCheckBox" name="checkBox_139">
+             <property name="text">
+              <string>PWM2</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="19">
+            <widget class="QCheckBox" name="checkBox_140">
+             <property name="text">
+              <string>AO2</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="0">
+            <widget class="QCheckBox" name="checkBox_141">
+             <property name="text">
+              <string>DI0</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="20">
+            <widget class="QCheckBox" name="checkBox_142">
+             <property name="text">
+              <string>AI0</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="6">
+            <widget class="QCheckBox" name="checkBox_143">
+             <property name="text">
+              <string>DI6</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="17">
+            <widget class="QCheckBox" name="checkBox_144">
+             <property name="text">
+              <string>AO1</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="13">
+            <widget class="QCheckBox" name="checkBox_145">
+             <property name="text">
+              <string>PWM5</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="8">
+            <widget class="QCheckBox" name="checkBox_146">
+             <property name="text">
+              <string>PWM0</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="14">
+            <widget class="QCheckBox" name="checkBox_147">
+             <property name="text">
+              <string>PWM6</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="12">
+            <widget class="QCheckBox" name="checkBox_148">
+             <property name="text">
+              <string>PWM4</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="11">
+            <widget class="QCheckBox" name="checkBox_149">
+             <property name="text">
+              <string>PWM3</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="9">
+            <widget class="QCheckBox" name="checkBox_150">
+             <property name="text">
+              <string>PWM1</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="5">
+            <widget class="QCheckBox" name="checkBox_151">
+             <property name="text">
+              <string>DI5</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="2">
+            <widget class="QCheckBox" name="checkBox_152">
+             <property name="text">
+              <string>DI2</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="7">
+            <widget class="QCheckBox" name="checkBox_153">
+             <property name="text">
+              <string>DI7</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="15">
+            <widget class="QCheckBox" name="checkBox_154">
+             <property name="text">
+              <string>PWM7</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="1">
+            <widget class="QCheckBox" name="checkBox_155">
+             <property name="text">
+              <string>DI1</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="4">
+            <widget class="QCheckBox" name="checkBox_156">
+             <property name="text">
+              <string>DI4</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="0">
+            <widget class="QCheckBox" name="checkBox_157">
+             <property name="text">
+              <string>AI1</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="1">
+            <widget class="QCheckBox" name="checkBox_158">
+             <property name="text">
+              <string>AI2</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="2">
+            <widget class="QCheckBox" name="checkBox_159">
+             <property name="text">
+              <string>AI3</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="3">
+            <widget class="QCheckBox" name="checkBox_160">
+             <property name="text">
+              <string>AI4</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="4">
+            <widget class="QCheckBox" name="checkBox_161">
+             <property name="text">
+              <string>AI5</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="5">
+            <widget class="QCheckBox" name="checkBox_162">
+             <property name="text">
+              <string>AI6</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="6">
+            <widget class="QCheckBox" name="checkBox_163">
+             <property name="text">
+              <string>AI7</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="7">
+            <widget class="QCheckBox" name="checkBox_164">
+             <property name="text">
+              <string>AI8</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="8">
+            <widget class="QCheckBox" name="checkBox_165">
+             <property name="text">
+              <string>AI9</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="9">
+            <widget class="QCheckBox" name="checkBox_166">
+             <property name="text">
+              <string>AI10</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="10">
+            <widget class="QCheckBox" name="checkBox_167">
+             <property name="text">
+              <string>AI11</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="11">
+            <widget class="QCheckBox" name="checkBox_168">
+             <property name="text">
+              <string>E0</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="12">
+            <widget class="QCheckBox" name="checkBox_169">
+             <property name="text">
+              <string>E1</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="13">
+            <widget class="QCheckBox" name="checkBox_170">
+             <property name="text">
+              <string>F0</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="14">
+            <widget class="QCheckBox" name="checkBox_171">
+             <property name="text">
+              <string>F1</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="15">
+            <widget class="QCheckBox" name="checkBox_172">
+             <property name="text">
+              <string>DAI0</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="16">
+            <widget class="QCheckBox" name="checkBox_173">
+             <property name="text">
+              <string>DAI1</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="17">
+            <widget class="QCheckBox" name="checkBox_174">
+             <property name="text">
+              <string>DAI2</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="19">
+            <widget class="QCheckBox" name="checkBox_175">
+             <property name="text">
+              <string>DAI3</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="20">
+            <widget class="QCheckBox" name="checkBox_176">
+             <property name="text">
+              <string>DAI4</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item row="2" column="0">
+         <widget class="QGroupBox" name="groupBox_69">
+          <property name="title">
+           <string>Charts</string>
+          </property>
+          <layout class="QGridLayout" name="gridLayout_65">
+           <item row="0" column="0">
+            <widget class="QFrame" name="horizontalFrame">
+             <layout class="QHBoxLayout" name="horizontalLayout_9"/>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <action name="actionConnect_SQL">
+   <property name="text">
+    <string>Connect SQL</string>
+   </property>
+  </action>
+  <action name="actionAdd_calibration">
+   <property name="text">
+    <string>Add calibration</string>
+   </property>
+  </action>
+  <action name="actionUSB_connection">
+   <property name="text">
+    <string>USB connection</string>
+   </property>
+  </action>
+  <action name="actionAbout">
+   <property name="text">
+    <string>About</string>
+   </property>
+  </action>
+  <action name="actionShow_measurements">
+   <property name="text">
+    <string>Show measurements</string>
+   </property>
+  </action>
+  <action name="actionImport_measurements">
+   <property name="text">
+    <string>Import measurements</string>
+   </property>
+  </action>
+  <action name="actionQuit">
+   <property name="text">
+    <string>Quit</string>
+   </property>
+  </action>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
