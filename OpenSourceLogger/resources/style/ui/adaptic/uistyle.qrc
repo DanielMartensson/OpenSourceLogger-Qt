@@ -1,0 +1,13 @@
+<RCC>
+    <qresource prefix="/style/ui/adaptic">
+        <file>arrow-down.png</file>
+        <file>arrow-down-large.png</file>
+        <file>arrow-down-small.png</file>
+        <file>arrow-left.png</file>
+        <file>arrow-right.png</file>
+        <file>arrow-up-large.png</file>
+        <file>arrow-up-small.png</file>
+        <file>checkbox-cross.png</file>
+        <file>adaptic.qss</file>
+    </qresource>
+</RCC>

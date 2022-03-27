@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MeasurementListWindow</class>
+ <widget class="QWidget" name="MeasurementListWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>794</width>
+    <height>511</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Measurement list</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="../../../../resources/icons/buttons/buttonicons.qrc">
+    <normaloff>:/icons/buttons/application_cascade.png</normaloff>:/icons/buttons/application_cascade.png</iconset>
+  </property>
+  <layout class="QGridLayout" name="gridLayout">
+   <item row="0" column="0">
+    <layout class="QVBoxLayout" name="verticalLayout">
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout_2">
+       <item>
+        <widget class="QLabel" name="label">
+         <property name="text">
+          <string>Measurement comment:</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="measurementCommentLineEdit"/>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout_3">
+       <item>
+        <widget class="QPushButton" name="csvFileSaveLocationPushButton">
+         <property name="text">
+          <string>CSV save file location:</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="csvSaveFileLocationLineEdit">
+         <property name="readOnly">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout">
+       <item>
+        <widget class="QPushButton" name="addMeasurementPushButton">
+         <property name="text">
+          <string>Add measurement</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="deleteMeasurementPushButton">
+         <property name="text">
+          <string>Delete measurement</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <widget class="QListWidget" name="measurementListWidget"/>
+     </item>
+    </layout>
+   </item>
+  </layout>
+ </widget>
+ <resources>
+  <include location="../../../../resources/icons/buttons/buttonicons.qrc"/>
+  <include location="../../../../resources/icons/buttons/buttonicons.qrc"/>
+  <include location="../../../../resources/icons/buttons/buttonicons.qrc"/>
+ </resources>
+ <connections/>
+</ui>

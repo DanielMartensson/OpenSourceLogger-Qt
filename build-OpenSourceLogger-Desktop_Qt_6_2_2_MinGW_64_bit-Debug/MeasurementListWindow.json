@@ -1,0 +1,22 @@
+{
+    "csvSaveFileLocationLineEdit": "C:/Users/danie/Downloads/test.csv",
+    "maxMeasurementList": [
+        255
+    ],
+    "maxRawValueList": [
+        255
+    ],
+    "measurementCommentLineEdit": "fdsfdsf",
+    "measurementNameList": [
+        "Auxiliary_valve0"
+    ],
+    "measurementSourceTypeList": [
+        "Auxiliary_valve0"
+    ],
+    "minMeasurementList": [
+        -255
+    ],
+    "minRawValueList": [
+        -255
+    ]
+}

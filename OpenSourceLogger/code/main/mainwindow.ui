@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>998</width>
+    <height>462</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>OpenSourceLogger</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="../../resources/icons/buttons/buttonicons.qrc">
+    <normaloff>:/icons/buttons/table_edit.png</normaloff>:/icons/buttons/table_edit.png</iconset>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QGridLayout" name="gridLayout">
+    <item row="0" column="1">
+     <widget class="QCustomPlot" name="plot" native="true"/>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>998</width>
+     <height>26</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuFile">
+    <property name="title">
+     <string>File</string>
+    </property>
+    <addaction name="actionUpload"/>
+    <addaction name="actionExit"/>
+   </widget>
+   <widget class="QMenu" name="menuEdit">
+    <property name="title">
+     <string>Edit</string>
+    </property>
+    <addaction name="actionConnection"/>
+    <addaction name="separator"/>
+    <addaction name="actionCAN"/>
+    <addaction name="actionMeasurement"/>
+    <addaction name="actionSTM32PLC"/>
+   </widget>
+   <widget class="QMenu" name="menuView">
+    <property name="title">
+     <string>Action</string>
+    </property>
+    <addaction name="actionControl"/>
+    <addaction name="actionView"/>
+   </widget>
+   <widget class="QMenu" name="menuHelp">
+    <property name="title">
+     <string>Help</string>
+    </property>
+    <addaction name="actionAbout"/>
+   </widget>
+   <addaction name="menuFile"/>
+   <addaction name="menuEdit"/>
+   <addaction name="menuView"/>
+   <addaction name="menuHelp"/>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+  <action name="actionExit">
+   <property name="icon">
+    <iconset resource="../../resources/icons/buttons/buttonicons.qrc">
+     <normaloff>:/icons/buttons/door_in.png</normaloff>:/icons/buttons/door_in.png</iconset>
+   </property>
+   <property name="text">
+    <string>Exit</string>
+   </property>
+  </action>
+  <action name="actionConnection">
+   <property name="icon">
+    <iconset resource="../../resources/icons/buttons/buttonicons.qrc">
+     <normaloff>:/icons/buttons/connect.png</normaloff>:/icons/buttons/connect.png</iconset>
+   </property>
+   <property name="text">
+    <string>Connection</string>
+   </property>
+  </action>
+  <action name="actionCAN">
+   <property name="icon">
+    <iconset resource="../../resources/icons/buttons/buttonicons.qrc">
+     <normaloff>:/icons/buttons/computer.png</normaloff>:/icons/buttons/computer.png</iconset>
+   </property>
+   <property name="text">
+    <string>CAN</string>
+   </property>
+  </action>
+  <action name="actionMeasurement">
+   <property name="icon">
+    <iconset resource="../../resources/icons/buttons/buttonicons.qrc">
+     <normaloff>:/icons/buttons/application_cascade.png</normaloff>:/icons/buttons/application_cascade.png</iconset>
+   </property>
+   <property name="text">
+    <string>Measurement</string>
+   </property>
+  </action>
+  <action name="actionControl">
+   <property name="icon">
+    <iconset resource="../../resources/icons/buttons/buttonicons.qrc">
+     <normaloff>:/icons/buttons/controller.png</normaloff>:/icons/buttons/controller.png</iconset>
+   </property>
+   <property name="text">
+    <string>Control</string>
+   </property>
+  </action>
+  <action name="actionView">
+   <property name="icon">
+    <iconset resource="../../resources/icons/buttons/buttonicons.qrc">
+     <normaloff>:/icons/buttons/view.ico</normaloff>:/icons/buttons/view.ico</iconset>
+   </property>
+   <property name="text">
+    <string>View</string>
+   </property>
+  </action>
+  <action name="actionUpload">
+   <property name="icon">
+    <iconset resource="../../resources/icons/buttons/buttonicons.qrc">
+     <normaloff>:/icons/buttons/arrow_up.png</normaloff>:/icons/buttons/arrow_up.png</iconset>
+   </property>
+   <property name="text">
+    <string>Upload</string>
+   </property>
+  </action>
+  <action name="actionSTM32PLC">
+   <property name="icon">
+    <iconset resource="../../resources/icons/buttons/buttonicons.qrc">
+     <normaloff>:/icons/buttons/computer_edit.png</normaloff>:/icons/buttons/computer_edit.png</iconset>
+   </property>
+   <property name="text">
+    <string>STM32PLC</string>
+   </property>
+  </action>
+  <action name="actionAbout">
+   <property name="icon">
+    <iconset resource="../../resources/icons/buttons/buttonicons.qrc">
+     <normaloff>:/icons/buttons/about.ico</normaloff>:/icons/buttons/about.ico</iconset>
+   </property>
+   <property name="text">
+    <string>About</string>
+   </property>
+  </action>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>QCustomPlot</class>
+   <extends>QWidget</extends>
+   <header>../OpenSourceLogger/code/tools/qcustomplot/qcustomplot.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
+ <resources>
+  <include location="../../resources/icons/buttons/buttonicons.qrc"/>
+  <include location="../../resources/icons/buttons/buttonicons.qrc"/>
+  <include location="../../resources/icons/buttons/buttonicons.qrc"/>
+ </resources>
+ <connections/>
+</ui>
