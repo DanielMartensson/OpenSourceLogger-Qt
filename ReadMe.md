@@ -40,8 +40,12 @@ This project is large and requires many steps to build up.
 
 Main view window will show the measurements in real time
 
-[](https://raw.githubusercontent.com/DanielMartensson/OpenSourceLogger/main/pictures/MainWindow.PNG)
+[a](https://raw.githubusercontent.com/DanielMartensson/OpenSourceLogger/main/pictures/MainWindow.PNG)
 
 Control window is the user panel for sending CAN-bus signals or regular control signals
 
-[](https://raw.githubusercontent.com/DanielMartensson/OpenSourceLogger/main/pictures/ControlWindow.PNG)
+[a](https://raw.githubusercontent.com/DanielMartensson/OpenSourceLogger/main/pictures/ControlWindow.PNG)
+
+OpenSourceLogger is also an ECU for CAN-bus
+
+[a](https://raw.githubusercontent.com/DanielMartensson/OpenSourceLogger/main/pictures/CANSettingsWindow.PNG)
