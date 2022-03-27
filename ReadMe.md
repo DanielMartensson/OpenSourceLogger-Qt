@@ -35,6 +35,7 @@ This project is large and requires many steps to build up.
 - Create a manual how to use, even if the software is easy to use.
 - Redesign the circuit board for the three 0-20 mA DAC outputs. They are using a Widlar current mirror. Construct a Wilson current mirror instead.
 - Remove Low Speed External crystal, Battery holder, some 2.54mm pins, Serial RX TX holes and chip select holes (The circuit board was made for become an independent PLC, but I changed the software and made USB connections instead and constructed a C++ QT software instead of having a cheap touch LCD at the circuit board). The board will have the same functionality, with lesser eletrical components.
+- More watts of the MOSFETs on the PCB board.
 
 # Pictures
 
@@ -50,4 +51,30 @@ OpenSourceLogger is also an ECU for CAN-bus
 
 ![a](https://raw.githubusercontent.com/DanielMartensson/OpenSourceLogger/main/pictures/CANSettingsWindow.PNG)
 
+But to make this work, you need to connect a to USB and database
 
+![a](https://raw.githubusercontent.com/DanielMartensson/OpenSourceLogger/main/pictures/ConnectionWindow.PNG)
+
+Add a new measurement variable
+
+![a](https://raw.githubusercontent.com/DanielMartensson/OpenSourceLogger/main/pictures/MeasurementListWindow.PNG)
+
+Change the STM32 ADC and PWM prescalar settings
+
+![a](https://raw.githubusercontent.com/DanielMartensson/OpenSourceLogger/main/pictures/STM32Window.PNG)
+
+This is the PCB board
+
+![a](https://raw.githubusercontent.com/DanielMartensson/OpenSourceLogger/main/pictures/PCB.PNG)
+
+SAE J1939 CAN bus protocol
+
+![a](https://raw.githubusercontent.com/DanielMartensson/OpenSourceLogger/main/pictures/SaeJ1939.PNG)
+
+Upload measurement to the datbase
+
+![a](https://raw.githubusercontent.com/DanielMartensson/OpenSourceLogger/main/pictures/UploadWindow.PNG)
+
+View past measurements
+
+![a](https://raw.githubusercontent.com/DanielMartensson/OpenSourceLogger/main/pictures/ViewWindow.PNG)
