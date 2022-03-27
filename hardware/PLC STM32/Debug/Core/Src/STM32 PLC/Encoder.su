@@ -1,0 +1,2 @@
+../Core/Src/STM32 PLC/Encoder.c:13:6:STM32_PLC_Encoder	16	static
+../Core/Src/STM32 PLC/Encoder.c:26:10:STM32_PLC_Encoder_Get_Raw	0	static
