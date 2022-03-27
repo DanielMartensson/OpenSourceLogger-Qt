@@ -28,7 +28,7 @@ This project is large and requires many steps to build up.
 2. Download this repository.
 3. Go to hardware -> DAC ADC PWM IO and open the KiCad project and then order a circuit board from your PCB printer manufacture.
 3. Once you got the circuit board finished, you go to hardware -> STM32 PLC and open the project with STM32CubeIDE and flash your STM32 microcontroller with that project.
-4. Start OpenSourceLogger project with QT Creator. If you are using MySQL with OpenSourceLogger, please see this [video]('https://www.youtube.com/watch?v=qeErME39zvw')
+4. Start OpenSourceLogger project with QT Creator. If you are using MySQL with OpenSourceLogger, please see this [video](https://www.youtube.com/watch?v=qeErME39zvw)
 
 # Todo
 
