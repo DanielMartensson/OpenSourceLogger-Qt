@@ -1,9 +1,0 @@
-{
-    "databaseDriverComboBox": "QMYSQL",
-    "databaseNameLineEdit": "test_bench_data",
-    "hostnameLineEdit": "127.0.0.1",
-    "passwordLineEdit": "myPassword",
-    "portSpinBox": 3306,
-    "selectedUSBportComboBox": "COM4",
-    "usernameLineEdit": "myUser"
-}
