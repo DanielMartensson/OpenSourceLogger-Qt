@@ -91,5 +91,4 @@ View past measurements
 
 And the results
 
-
 ![a](https://raw.githubusercontent.com/DanielMartensson/OpenSourceLogger/main/pictures/FromDatabase.PNG)
