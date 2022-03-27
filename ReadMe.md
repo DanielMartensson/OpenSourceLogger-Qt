@@ -37,6 +37,16 @@ This project is large and requires many steps to build up.
 - Remove Low Speed External crystal, Battery holder, some 2.54mm pins, Serial RX TX holes and chip select holes (The circuit board was made for become an independent PLC, but I changed the software and made USB connections instead and constructed a C++ QT software instead of having a cheap touch LCD at the circuit board). The board will have the same functionality, with lesser eletrical components.
 - More watts of the MOSFETs on the PCB board.
 
+# Minimum requriments for software
+
+- MySQL 8
+- QT Creator 4.15.1
+- QT 6.2.2
+- MinGW 8.1.0
+- KiCad 5.1.10
+- QCustomPlot 2.1.0 (With a patch so it works for QT 6.2.2)
+- STM32CubeIDE 1.9.0
+
 # Pictures
 
 Main view window will show the measurements in real time
@@ -78,3 +88,8 @@ Upload measurement to the datbase
 View past measurements
 
 ![a](https://raw.githubusercontent.com/DanielMartensson/OpenSourceLogger/main/pictures/ViewWindow.PNG)
+
+And the results
+
+
+![a](https://raw.githubusercontent.com/DanielMartensson/OpenSourceLogger/main/pictures/FromDatabase.PNG)
