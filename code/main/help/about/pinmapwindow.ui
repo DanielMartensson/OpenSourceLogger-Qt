@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>PinMapWindow</class>
+ <widget class="QWidget" name="PinMapWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>832</width>
+    <height>723</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Pin map</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="../../../../resources/icons/buttons/buttonicons.qrc">
+    <normaloff>:/icons/buttons/shading.png</normaloff>:/icons/buttons/shading.png</iconset>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <widget class="QLabel" name="label">
+     <property name="text">
+      <string/>
+     </property>
+     <property name="pixmap">
+      <pixmap resource="../../../../resources/images/images.qrc">:/images/Pinmap.png</pixmap>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources>
+  <include location="../../../../resources/icons/buttons/buttonicons.qrc"/>
+  <include location="../../../../resources/icons/buttons/buttonicons.qrc"/>
+  <include location="../../../../resources/icons/buttons/buttonicons.qrc"/>
+  <include location="../../../../resources/images/images.qrc"/>
+ </resources>
+ <connections/>
+</ui>

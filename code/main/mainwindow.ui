@@ -61,6 +61,7 @@
     <property name="title">
      <string>Help</string>
     </property>
+    <addaction name="actionPin_map"/>
     <addaction name="actionAbout"/>
    </widget>
    <addaction name="menuFile"/>
@@ -148,6 +149,15 @@
    </property>
    <property name="text">
     <string>About</string>
+   </property>
+  </action>
+  <action name="actionPin_map">
+   <property name="icon">
+    <iconset resource="../../resources/icons/buttons/buttonicons.qrc">
+     <normaloff>:/icons/buttons/shading.png</normaloff>:/icons/buttons/shading.png</iconset>
+   </property>
+   <property name="text">
+    <string>Pin map</string>
    </property>
   </action>
  </widget>

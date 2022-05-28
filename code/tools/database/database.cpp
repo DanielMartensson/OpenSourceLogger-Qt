@@ -31,42 +31,37 @@ void Database::disconnectFromDatabase(){
 }
 
 
-void Database::createTable(QStringList measurementColumNames){
-    /* Create the query */
+void Database::createTable(QString tableName, QList<QPair<QString, QString>> measurementColums){
+    /* Create the query object */
     QSqlQuery query;
 
-    /* Create the ID columns */
-    if(query.exec("CREATE TABLE " + QString(TABLE_NAME) + "(" + QString(DATABASE_ID) + " BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY)")){
-        /* Measurement ID */
-        query.exec("ALTER TABLE " + QString(TABLE_NAME) + " ADD " + QString(MEASUREMENT_ID) + " BIGINT");
-    }
+    /* Create columns */
+    for(int i = 0; i < measurementColums.length(); i++){
+        /* Get the columns */
+        QPair<QString, QString> column = measurementColums.at(i);
+        QString columnName = column.first;
+        QString columnDataType = column.second;
+        QString queryCommand;
 
-    /* Other columns */
-    foreach(QString columnName, measurementColumNames){
-        QString dataType;
-        if(columnName == MEASUREMENT_DATE_TIME){
-            if(qSqlDatabase.driverName() == "QMYSQL" || qSqlDatabase.driverName() == "MARIADB")
-                dataType = "DATETIME(3)"; /* 3 for milliseconds */
-            else if(qSqlDatabase.driverName() == "QODBC")
-                dataType = "DATETIME";
-        }else if(columnName == MEASUREMENT_COMMENT){
-            dataType = "VARCHAR(255)";
+        /* Create the columns */
+        if(columnName == TABLE_ID){
+            queryCommand = "CREATE TABLE " + tableName + " (" + columnName + " " + columnDataType + " NOT NULL AUTO_INCREMENT PRIMARY KEY)";
         }else{
-            dataType = "FLOAT";
+            queryCommand = "ALTER TABLE " + tableName + " ADD " + columnName + " " + columnDataType;
         }
 
         /* Add a new column */
-        query.exec("ALTER TABLE " + QString(TABLE_NAME) + " ADD " + columnName + " " + dataType);
+        query.exec(queryCommand);
     }
 }
 
-QVariant Database::getLastValueAtColumnName(QString columnName){
+QVariant Database::getLastValueAtColumnName(QString columnName, QString tableName){
     /* Create the query */
     QString lastValueQuery;
     if(qSqlDatabase.driverName() == "QMYSQL" || qSqlDatabase.driverName() == "MARIADB")
-        lastValueQuery = "SELECT " + columnName + " FROM " + QString(TABLE_NAME) + " ORDER BY ID DESC LIMIT 1";
+        lastValueQuery = "SELECT " + columnName + " FROM " + tableName + " ORDER BY ID DESC LIMIT 1";
     else if(qSqlDatabase.driverName() == "QODBC")
-        lastValueQuery = "SELECT TOP 1 " + columnName + " FROM " + QString(TABLE_NAME) + " ORDER BY ID DESC";
+        lastValueQuery = "SELECT TOP 1 " + columnName + " FROM " + tableName + " ORDER BY ID DESC";
 
 
     /* Call the query and get the value */
@@ -80,40 +75,40 @@ QVariant Database::getLastValueAtColumnName(QString columnName){
     }
 }
 
-bool Database::insertRow(long measurementID, QList<QStringList> measurementValueList, QStringList measurementColumNames){
+bool Database::insertRow(QString tableName, long measurementID, QList<QStringList> values, QStringList columns){
     /* Create the query */
     QString insertRowQuery;
 
     /* Important to set the ID's first */
-    insertRowQuery = "INSERT INTO " + QString(TABLE_NAME) + " (" + QString(DATABASE_ID) + "," + QString(MEASUREMENT_ID);
+    insertRowQuery = "INSERT INTO " + tableName + " (" + QString(TABLE_ID) + "," + QString(MEASUREMENT_ID);
 
     /* Then set the measurement column names */
-    foreach(QString measurementColumName, measurementColumNames)
+    foreach(QString measurementColumName, columns)
         insertRowQuery += "," + measurementColumName;
 
     /* Insert the ID values */
     insertRowQuery += ") VALUES ";
 
     /* Then set the measurement column names */
-    for(int i = 0; i < measurementValueList.length(); i++){
+    for(int i = 0; i < values.length(); i++){
         /* Create the ID fields first */
         insertRowQuery += "(0," + QString::number(measurementID);
 
         /* Then create the rest of the values */
         QString restOfTheValues;
-        foreach(QString measurementValue, measurementValueList.at(i)){
+        foreach(QString value, values.at(i)){
             /* If it's not a number, then it is a string - simple logic */
             bool ok;
-            float value = measurementValue.toFloat(&ok);
+            float valueFloat = value.toFloat(&ok);
             if(ok){
-                restOfTheValues += "," + QString::number(value);
+                restOfTheValues += "," + QString::number(valueFloat);
             }else{
-                restOfTheValues += ",'" + measurementValue + "'";
+                restOfTheValues += ",'" + value + "'";
             }
         }
 
         /* Combine */
-        if(i < measurementValueList.length() - 1)
+        if(i < values.length() - 1)
             insertRowQuery += restOfTheValues + "),";
         else
             insertRowQuery += restOfTheValues + ")";
@@ -124,8 +119,8 @@ bool Database::insertRow(long measurementID, QList<QStringList> measurementValue
     return query.exec(insertRowQuery);
 }
 
-QList<QVariant> Database::listItemsInsideAColumnButAvoidDuplicates(QString columnName){
-    QSqlQuery query("SELECT DISTINCT " + QString(columnName) + " FROM " + QString(TABLE_NAME));
+QList<QVariant> Database::listItemsInsideAColumnButAvoidDuplicates(QString tableName, QString columnName){
+    QSqlQuery query("SELECT DISTINCT " + QString(columnName) + " FROM " + tableName);
     QList<QVariant> columnList;
     while (query.next()){
         int index = query.record().indexOf(columnName);
@@ -134,59 +129,67 @@ QList<QVariant> Database::listItemsInsideAColumnButAvoidDuplicates(QString colum
     return columnList;
 }
 
-QStringList Database::getColumnNames(){
-    QSqlRecord record = qSqlDatabase.record(TABLE_NAME);
-    QStringList colunNames;
-    for(int i = 0; i < record.count(); i++)
-        colunNames.append(record.fieldName(i));
-    return colunNames;
+QStringList Database::getColumnNamesByMeasurementID(QString tableName, QString measurementID){
+    QSqlQuery query;
+    query.exec("SELECT * FROM " + tableName + " WHERE " + QString(MEASUREMENT_ID) + " = " + measurementID);
+    QStringList colunmNames;
+    while(query.next()){
+        int columnCount = query.record().count();
+        /* Avoid ID and measurement ID */
+        for(int i = 2; i < columnCount; i++){
+            if(!query.value(i).isNull())
+                colunmNames.append(query.value(i).toString());
+        }
+    }
+    return colunmNames;
 }
 
-QList<QList<QVariant>> Database::getMeasurementRowsByMeasurementID(QString measurementID){
+QList<QList<QVariant>> Database::getMeasurementRowsByMeasurementID(QString tableName, QString measurementID){
     QSqlQuery query;
-    query.exec("SELECT * FROM " + QString(TABLE_NAME) + " WHERE " + QString(MEASUREMENT_ID) + " = " + measurementID);
-    QStringList columnNames = getColumnNames();
+    query.exec("SELECT * FROM " + tableName + " WHERE " + QString(MEASUREMENT_ID) + " = " + measurementID);
     QList<QList<QVariant>> measurements;
     while(query.next()){
-        /* Save each row */
         QList<QVariant> row;
-        foreach(QString columnName, columnNames){
-            int fieldNumber = query.record().indexOf(columnName);
-            row.append(query.value(fieldNumber));
+        /* Avoid ID and measurement ID */
+        for(int i = 2; i < query.record().count(); i++){
+            if(!query.value(i).isNull())
+                row.append(query.value(i));
         }
         measurements.append(row);
     }
     return measurements;
 }
 
-bool Database::deleteRowsBetweenID(long from, long to){
+bool Database::deleteRowsBetweenID(QString tableName, long from, long to){
     QSqlQuery query;
-    return query.exec("DELETE FROM " + QString(TABLE_NAME) + " WHERE " + QString(DATABASE_ID) + " BETWEEN " + QString::number(from) + " AND " + QString::number(to));
+    return query.exec("DELETE FROM " + tableName + " WHERE " + QString(TABLE_ID) + " BETWEEN " + QString::number(from) + " AND " + QString::number(to));
 }
 
-bool Database::deleteRowByID(long ID){
+bool Database::deleteRowsBetweenDateTime(QString tableName, QString from, QString to){
     QSqlQuery query;
-    return query.exec("DELETE FROM " + QString(TABLE_NAME) + " WHERE " + QString(DATABASE_ID) + " = " + QString::number(ID));
+    query.exec("SELECT " + QString(TABLE_ID) + " FROM " + tableName + " WHERE " + QString(MEASUREMENT_DATE_TIME) + " = '" + from + "'");
+    query.next();
+    long fromID = query.record().value(TABLE_ID).toLongLong();
+    query.exec("SELECT " + QString(TABLE_ID) + " FROM " + tableName + " WHERE " + QString(MEASUREMENT_DATE_TIME) + " = '" + to + "'");
+    query.next();
+    long toID = query.record().value(TABLE_ID).toLongLong();
+    return deleteRowsBetweenID(tableName, fromID, toID);
 }
 
-bool Database::deleteColumns(QStringList columnNames){
+bool Database::deleteRowByID(QString tableName, long ID){
     QSqlQuery query;
-    if(qSqlDatabase.driverName() == "QMYSQL" || qSqlDatabase.driverName() == "MARIADB"){
-        QString drops;
-        for(int i = 0; i < columnNames.length(); i++)
-            if(i < columnNames.length() - 1)
-                drops += "DROP " + columnNames.at(i) + ", ";
-            else
-                drops += "DROP " + columnNames.at(i);
-        return query.exec("ALTER TABLE " + QString(TABLE_NAME) + " " + drops);
-    }else if(qSqlDatabase.driverName() == "QODBC"){
-        QString drops;
-        for(int i = 0; i < columnNames.length(); i++)
-            if(i < columnNames.length() - 1)
-                drops += columnNames.at(i) + ", ";
-            else
-                drops += columnNames.at(i);
-        return query.exec("ALTER TABLE " + QString(TABLE_NAME) + " DROP COLUMN " + drops);
-    }
-    return false;
+    return query.exec("DELETE FROM " + tableName + " WHERE " + QString(TABLE_ID) + " = " + QString::number(ID));
+}
+
+bool Database::deleteRowByDateTime(QString tableName, QString dateTime){
+    QSqlQuery query;
+    query.exec("SELECT " + QString(TABLE_ID) + " FROM " + tableName + " WHERE " + QString(MEASUREMENT_DATE_TIME) + " = '" + dateTime + "'");
+    query.next();
+    long ID = query.record().value(TABLE_ID).toLongLong();
+    return deleteRowByID(tableName, ID);
+}
+
+bool Database::deleteRowByMeasurementID(QString tableName, long ID){
+    QSqlQuery query;
+    return query.exec("DELETE FROM " + tableName + " WHERE " + QString(MEASUREMENT_ID) + " = " + QString::number(ID));
 }

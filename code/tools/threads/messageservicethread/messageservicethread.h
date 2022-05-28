@@ -5,15 +5,7 @@
 #include <QThread>
 #include "../../../tools/opensaej1939/Open_SAE_J1939/Open_SAE_J1939.h"
 #include "code/tools/usb/usb.h"
-#define MAX_ADC 12
-#define MAX_DADC 5
-#define MAX_ENCODER 2
-#define MAX_INPUT_CAPTURE 2
-#define MAX_DIGITAL_INPUT 9
-#define MAX_PWM 8
-#define MAX_DAC 3
-#define MAX_AUXILIARY_VALVE_COMMAND_STANDARD_FLOW 16
-#define MAX_GENERAL_PURPOSE_VALVE_COMMAND 1
+#include "code/tools/database/database.h"
 
 /* IDE */
 #define CAN_ID_STD                  (0x00000000U)  /*!< Standard Id */
@@ -28,10 +20,10 @@ public:
     uint16_t getPWMPrescaler(int index);
     bool getDigitalInput(int index);
     uint16_t getAnalogSingleInput(int index);
-    uint16_t getAnalogDifferentialInput(int index);
+    int16_t getAnalogDifferentialInput(int index);
     float getInputCapture(int index);
     int16_t getEncoderInput(int index);
-    uint16_t getPWM(int index);
+    uint16_t getPWMControl(int index);
     uint16_t getAnalogSingleOutput(int index);
     uint16_t getGeneralPurposeValveCommand(int index);
     uint8_t getAuxiliaryValveCommand(int index);
@@ -64,15 +56,15 @@ private:
     uint16_t pwmPrescaler[2] = {0};
 
     /* Measurement fields */
-    bool digitalInput[MAX_DIGITAL_INPUT] = {false};
-    uint16_t analogSingleInput[MAX_ADC] = {0};
-    uint16_t analogDifferentialInput[MAX_DADC] = {0};
-    float inputCapture[MAX_INPUT_CAPTURE] = {0};
-    int16_t encoderInput[MAX_ENCODER] = {0};
-    uint16_t PWM[MAX_PWM] = {0};
-    uint16_t analogSingleOutput[MAX_DAC] = {0};
-    uint16_t generalValveCommandExtendedFlow[MAX_GENERAL_PURPOSE_VALVE_COMMAND];
-    uint8_t auxiliaryValveCommandStandardFlow[MAX_AUXILIARY_VALVE_COMMAND_STANDARD_FLOW] = {0};
+    bool digitalInput[DI_LENGTH] = {false};
+    uint16_t analogSingleInput[ADC_LENGTH] = {0};
+    int16_t analogDifferentialInput[DADC_LENGTH] = {0};
+    float inputCapture[IC_LENGTH] = {0};
+    int16_t encoderInput[ENCODER_LENGTH] = {0};
+    uint16_t pwmControl[PWM_LENGTH] = {0};
+    uint16_t analogSingleOutput[DAC_LENGTH] = {0};
+    uint16_t generalValveCommandExtendedFlow[GENERAL_VALVE_LENGTH];
+    uint8_t auxiliaryValveCommandStandardFlow[AUXILIARY_VALVE_LENGTH] = {0};
 
     /* Flags */
     bool threadActive;

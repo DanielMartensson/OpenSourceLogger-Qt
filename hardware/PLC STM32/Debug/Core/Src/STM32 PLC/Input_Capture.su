@@ -1,3 +1,0 @@
-../Core/Src/STM32 PLC/Input_Capture.c:39:17:compute_period	8	static
-../Core/Src/STM32 PLC/Input_Capture.c:16:6:STM32_PLC_Input_Capture	16	static
-../Core/Src/STM32 PLC/Input_Capture.c:55:10:STM32_PLC_Input_Capture_Get_Raw	0	static

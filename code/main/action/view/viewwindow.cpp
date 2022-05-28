@@ -28,7 +28,7 @@ void ViewWindow::showEvent(QShowEvent *event){
     }
 
     /* Yes - Find all the measurement ID's and add them to the combobox */
-    QList<QVariant> measurementIDs = database->listItemsInsideAColumnButAvoidDuplicates(MEASUREMENT_ID);
+    QList<QVariant> measurementIDs = database->listItemsInsideAColumnButAvoidDuplicates(COLUMN_NAMES_TABLE, MEASUREMENT_ID);
     ui->measurementIDComboBox->clear();
     foreach(QVariant measurementID, measurementIDs)
         ui->measurementIDComboBox->addItem(measurementID.toString());
@@ -197,9 +197,9 @@ void ViewWindow::on_deleteDataPushButton_clicked()
     msgBox.exec();
     if(msgBox.clickedButton() == rangeButton){
         /* Delete in database */
-        long fromID = ui->measurementTableWidget->item(fromRow, 0)->text().toLong();
-        long toID = ui->measurementTableWidget->item(toRow, 0)->text().toLong();
-        if(database->deleteRowsBetweenID(fromID, toID))
+        QString fromDateTime = ui->measurementTableWidget->item(fromRow, 1)->text();
+        QString toDateTime = ui->measurementTableWidget->item(toRow, 1)->text();
+        if(database->deleteRowsBetweenDateTime(MEASUREMENT_TABLE, fromDateTime, toDateTime))
             ui->measurementTableWidget->model()->removeRows(fromRow, toRow - fromRow + 1);
     }else if(msgBox.clickedButton() == sequentialButton){
         /* Create progress bar */
@@ -207,8 +207,8 @@ void ViewWindow::on_deleteDataPushButton_clicked()
         progress.setWindowModality(Qt::WindowModality::ApplicationModal);
         for(int i = toRow; i >= fromRow; i -= jumpRow){
             /* Delete from database */
-            long ID = ui->measurementTableWidget->item(i, 0)->text().toLong();
-            if(database->deleteRowByID(ID)){
+            QString dateTime = ui->measurementTableWidget->item(i, 1)->text();
+            if(database->deleteRowByDateTime(MEASUREMENT_TABLE, dateTime)){
                 /* Delete from table */
                 ui->measurementTableWidget->removeRow(i);
 
@@ -236,18 +236,20 @@ void ViewWindow::on_deleteDataPushButton_clicked()
     ui->toRowSpinBox->setMaximum(rowCount);
 
     /* If we have not rows left - Delete current index and clear the table */
-    if(rowCount == 0)
+    if(rowCount == 0){
+        database->deleteRowByMeasurementID(COLUMN_NAMES_TABLE, ui->measurementIDComboBox->currentText().toInt());
         ui->measurementIDComboBox->removeItem(ui->measurementIDComboBox->currentIndex());
+    }
 }
 
 
 void ViewWindow::on_measurementIDComboBox_currentTextChanged(const QString &arg1)
 {
     /* Get the column names */
-    QStringList columnNames = database->getColumnNames();
+    QStringList columnNames = database->getColumnNamesByMeasurementID(COLUMN_NAMES_TABLE, arg1);
 
     /* Get the measurement values */
-    QList<QList<QVariant>> measurementRows = database->getMeasurementRowsByMeasurementID(arg1);
+    QList<QList<QVariant>> measurementRows = database->getMeasurementRowsByMeasurementID(MEASUREMENT_TABLE, arg1);
 
     /* Max row */
     int maxRow = measurementRows.length();
@@ -305,47 +307,8 @@ void ViewWindow::on_jumpRowSpinBox_valueChanged(int arg1)
 
 
 bool ViewWindow::avoidTheseMeasurementNames(QString measurementName){
-    if(measurementName == MEASUREMENT_COMMENT || measurementName == MEASUREMENT_DATE_TIME || measurementName == MEASUREMENT_ID || measurementName == DATABASE_ID)
+    if(measurementName == MEASUREMENT_COMMENT || measurementName == MEASUREMENT_DATE_TIME || measurementName == MEASUREMENT_ID || measurementName == TABLE_ID)
         return true;
     else
         return false;
 }
-
-void ViewWindow::on_deleteColumnsPushButton_clicked()
-{
-    /* Check if we have pressed any columns */
-    if(ui->measurementTableWidget->selectionModel()->selectedColumns().length() == 0)
-        return;
-
-    /* You cannot delete these columns */
-    QModelIndexList selectedColumns = ui->measurementTableWidget->selectionModel()->selectedColumns();
-    foreach(QModelIndex indexColumn, selectedColumns){
-        QString measurementName = ui->measurementTableWidget->horizontalHeaderItem(indexColumn.column())->text();
-        if(avoidTheseMeasurementNames(measurementName)){
-            QMessageBox::warning(this, "Delete", "You cannot delete the following column: " + measurementName);
-            return;
-        }
-    }
-
-    /* OK - Ask if the user want to delete */
-    QStringList columNamesList;
-    foreach(QModelIndex indexColumn, selectedColumns)
-        columNamesList.append(ui->measurementTableWidget->horizontalHeaderItem(indexColumn.column())->text());
-
-    /* Ask the user if he/she want to delete these columns */
-    int ret = QMessageBox::question(this, "Delete", "You you want to delete the following columns? " + columNamesList.join(","));
-    if(ret == QMessageBox::No)
-        return;
-
-    /* Delete rows in database */
-    if(database->deleteColumns(columNamesList)){
-        /* Remove columns as well */
-        for(int i = selectedColumns.length() - 1 ; i >= 0; i--)
-            ui->measurementTableWidget->removeColumn(selectedColumns.at(i).column());
-    }else{
-        QMessageBox::critical(this, "Delete", "You cannot delete the column: " + columNamesList.join(","));
-        return;
-    }
-}
-
-

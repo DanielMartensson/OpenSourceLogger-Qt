@@ -1,5 +1,6 @@
 <RCC>
     <qresource prefix="/images">
         <file>aboutLogo.png</file>
+        <file>Pinmap.png</file>
     </qresource>
 </RCC>

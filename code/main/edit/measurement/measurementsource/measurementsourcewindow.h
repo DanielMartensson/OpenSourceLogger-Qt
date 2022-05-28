@@ -16,7 +16,7 @@ class MeasurementSourceWindow : public QWidget
 public:
     explicit MeasurementSourceWindow(QWidget *parent = nullptr, QListWidgetItem *measurementListName = nullptr, MessageServiceThread *messageServiceThread = nullptr, QString measurementSourceType = nullptr, float minRawValue = 0.0f, float maxRawValue = 0.0f, float minMeasurement = 0.0f, float maxMeasurement = 0.0f, QString measurementName = "");
     ~MeasurementSourceWindow();
-    bool getMeasurementNameAndValue(QString &measurementName, float &measurementValue);
+    void getColumnNameMeasurementNameAndValue(QString & columName, QString &measurementName, float &measurementValue);
     QString getMeasurementSourceType();
     QString getMeasurementName();
     float getMinRawValue();

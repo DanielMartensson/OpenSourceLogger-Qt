@@ -115,6 +115,13 @@ void MainWindow::on_actionAbout_triggered()
     aboutWindow->show();
 }
 
+void MainWindow::on_actionPin_map_triggered()
+{
+    PinMapWindow *pinMapWindow = new PinMapWindow();
+    pinMapWindow->show();
+}
+
+
 
 void MainWindow::slotCreatePlot(int howManyMeasurements, int showSamples){
     /* Clear the plot */

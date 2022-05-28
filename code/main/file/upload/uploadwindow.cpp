@@ -29,16 +29,8 @@ void UploadWindow::on_uploadMeasurementPushButton_clicked()
 
     /* Fill the data */
     if(ui->csvFileOpenPathLineEdit->text().length() > 0 && ui->csvFileOpenPathLineEdit->text().endsWith(".csv")){
-        /* Create the columns */
-        QStringList measurementColumnNames;
-        for(int i = 0; i < ui->measurementTableWidget->columnCount(); i++)
-            measurementColumnNames.append(ui->measurementTableWidget->horizontalHeaderItem(i)->text());
-
-        /* Create the values for each row */
-        database->createTable(measurementColumnNames);
-
         /* Get the measurement ID */
-        long measurementID = database->getLastValueAtColumnName(MEASUREMENT_ID).toLongLong() + 1;
+        long measurementID = database->getLastValueAtColumnName(MEASUREMENT_ID, COLUMN_NAMES_TABLE).toLongLong() + 1;
 
         /* Count rows */
         int rowCount = ui->measurementTableWidget->rowCount();
@@ -56,7 +48,6 @@ void UploadWindow::on_uploadMeasurementPushButton_clicked()
         /* Insert values into database */
         QList<QStringList> measurementValueList;
         QStringList measurementValues;
-        bool noErrorOccurs = true;
         for(int i = 0; i < packages; i++){
             /* Load a row */
             measurementValueList.clear();
@@ -73,15 +64,14 @@ void UploadWindow::on_uploadMeasurementPushButton_clicked()
             else
                 progress.setValue(i);
 
-            if(!database->insertRow(measurementID, measurementValueList, measurementColumnNames)){
-                QMessageBox::critical(this, "Data", "Could not insert data into table - Wrong data type perhaps - Delete a column");
-                noErrorOccurs = false;
-                break;
+            if(!database->insertRow(MEASUREMENT_TABLE, measurementID, measurementValueList, columnNames)){
+                QMessageBox::critical(this, "Data", "Could not insert data into table for the measurement");
+                return;
             }
         }
 
-        /* If everything was OK - insert the rest of the values */
-        if(noErrorOccurs && rowsLeft > 0){
+        /* Insert the rest of the values */
+        if(rowsLeft > 0){
             /* The rest of the values */
             measurementValueList.clear();
             for(int j = 0; j < rowsLeft; j++){
@@ -92,12 +82,25 @@ void UploadWindow::on_uploadMeasurementPushButton_clicked()
             }
 
             /* Insert the last */
-            if(!database->insertRow(measurementID, measurementValueList, measurementColumnNames))
-                QMessageBox::critical(this, "Data", "Could not insert data into table - Wrong data type perhaps - Delete a column");
+            if(!database->insertRow(MEASUREMENT_TABLE, measurementID, measurementValueList, columnNames)){
+                QMessageBox::critical(this, "Data", "Could not insert data into table for the measurement");
+                return;
+            }
+        }
+
+        /* Add the column names */
+        QList<QStringList> measurementNamesList;
+        measurementNamesList.append(measurementNames);
+        if(!database->insertRow(COLUMN_NAMES_TABLE, measurementID, measurementNamesList, columnNames)){
+            QMessageBox::critical(this, "Data", "Could not insert data into table for the column names");
+            return;
         }
 
         /* This closes the progress bar */
         progress.setValue(packages);
+
+        /* Message box for OK */
+        QMessageBox::information(this, "Data", "Inserted into the database with measurement ID: " + QString::number(measurementID));
 
     }else{
         QMessageBox::information(this, "Not selected", "No CSV file was selected");
@@ -123,15 +126,16 @@ void UploadWindow::on_loadCsvFilePushButton_clicked()
         ui->csvFileOpenPathLineEdit->setText(csvFileOpenPathLocation);
 
         /* Show the file columns in the table view*/
-        QFile csvFile(csvFileOpenPathLocation);
-        if(csvFile.open(QFile::ReadOnly)){
+        QFile csvFileMeasurement(csvFileOpenPathLocation);
+        if(csvFileMeasurement.open(QFile::ReadOnly)){
             /* Clear the table view */
             ui->measurementTableWidget->clear();
 
             /* Fill every line, begin with the headers */
+            bool hasMeasurementColumnNamesBeenCreated = false;
             bool hasHeadersBeenCreated = false;
             int rows = 0;
-            QTextStream in(&csvFile);
+            QTextStream in(&csvFileMeasurement);
             while (!in.atEnd()){
                 /* Read one line */
                 QStringList line = in.readLine().split(",");
@@ -147,13 +151,21 @@ void UploadWindow::on_loadCsvFilePushButton_clicked()
                         ui->measurementTableWidget->setItem(rows-1, i, new QTableWidgetItem(line.at(i)));
 
                 }else{
-                    ui->measurementTableWidget->setHorizontalHeaderLabels(line);
-                    hasHeadersBeenCreated = true;
+                    if(hasMeasurementColumnNamesBeenCreated){
+                        /* Second line in the csv file */
+                        measurementNames = line;
+                        ui->measurementTableWidget->setHorizontalHeaderLabels(line);
+                        hasHeadersBeenCreated = true;
+                    }else{
+                        /* First line in the csv file */
+                        columnNames = line;
+                        hasMeasurementColumnNamesBeenCreated = true;
+                    }
                 }
             }
 
             /* Close file */
-            csvFile.close();
+            csvFileMeasurement.close();
         }
     }
 }

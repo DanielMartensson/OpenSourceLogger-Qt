@@ -1,3 +1,0 @@
-../Core/Src/STM32 PLC/CAN.c:14:6:STM32_PLC_CAN	48	static
-../Core/Src/STM32 PLC/CAN.c:22:19:STM32_PLC_CAN_Transmit	16	static
-../Core/Src/STM32 PLC/CAN.c:28:6:HAL_CAN_RxFifo0MsgPendingCallback	64	static

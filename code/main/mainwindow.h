@@ -21,6 +21,7 @@
 #include "action/view/viewwindow.h"
 #include "edit/stm32/stm32window.h"
 #include "help/about/aboutwindow.h"
+#include "help/about/pinmapwindow.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -59,6 +60,8 @@ private slots:
     void on_actionSTM32PLC_triggered();
 
     void on_actionAbout_triggered();
+
+    void on_actionPin_map_triggered();
 
 private:
     void closeEvent(QCloseEvent *event);

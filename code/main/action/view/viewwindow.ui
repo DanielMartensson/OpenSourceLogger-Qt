@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1092</width>
+    <width>1091</width>
     <height>393</height>
    </rect>
   </property>
@@ -28,13 +28,6 @@
      </property>
      <property name="text">
       <string>Jump row:</string>
-     </property>
-    </widget>
-   </item>
-   <item row="0" column="10">
-    <widget class="QPushButton" name="plotDataPushButton">
-     <property name="text">
-      <string>Plot data</string>
      </property>
     </widget>
    </item>
@@ -72,20 +65,18 @@
      <property name="selectionBehavior">
       <enum>QAbstractItemView::SelectColumns</enum>
      </property>
-    </widget>
-   </item>
-   <item row="0" column="11">
-    <widget class="QPushButton" name="downloadDataPushButton">
-     <property name="text">
-      <string>Download data</string>
-     </property>
-    </widget>
-   </item>
-   <item row="0" column="12">
-    <widget class="QPushButton" name="deleteDataPushButton">
-     <property name="text">
-      <string>Delete data</string>
-     </property>
+     <attribute name="horizontalHeaderCascadingSectionResizes">
+      <bool>true</bool>
+     </attribute>
+     <attribute name="horizontalHeaderDefaultSectionSize">
+      <number>160</number>
+     </attribute>
+     <attribute name="horizontalHeaderStretchLastSection">
+      <bool>true</bool>
+     </attribute>
+     <attribute name="verticalHeaderStretchLastSection">
+      <bool>false</bool>
+     </attribute>
     </widget>
    </item>
    <item row="0" column="9">
@@ -127,13 +118,6 @@
    <item row="0" column="3">
     <widget class="QComboBox" name="measurementIDComboBox"/>
    </item>
-   <item row="0" column="13">
-    <widget class="QPushButton" name="deleteColumnsPushButton">
-     <property name="text">
-      <string>Delete columns</string>
-     </property>
-    </widget>
-   </item>
    <item row="0" column="7">
     <widget class="QSpinBox" name="jumpRowSpinBox">
      <property name="minimum">
@@ -141,6 +125,27 @@
      </property>
      <property name="maximum">
       <number>999999999</number>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="13">
+    <widget class="QPushButton" name="deleteDataPushButton">
+     <property name="text">
+      <string>Delete data</string>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="12">
+    <widget class="QPushButton" name="downloadDataPushButton">
+     <property name="text">
+      <string>Download data</string>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="10" colspan="2">
+    <widget class="QPushButton" name="plotDataPushButton">
+     <property name="text">
+      <string>Plot data</string>
      </property>
     </widget>
    </item>

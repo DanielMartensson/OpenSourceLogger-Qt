@@ -21,39 +21,39 @@ void LoggingThread::run(){
         /* Create the lists */
         QVector<float> measurementValueList;
         QStringList measurementNameList;
+        QStringList measurementColumnList;
 
         /* Create flags */
         bool hasPlotBeenCreated = false;
         bool hasCSVHeaderBeenCreated = false;
 
-        /* Create new file */
-        QString csvFileSavePathLocation = measurementListWindow->getCsvFileSavePathLocation();
-        QFile csvFile(csvFileSavePathLocation);
-        csvFile.open(QFile::WriteOnly);
+        /* Create file for measurement */
+        QString measurementCsvFileSavePathLocation = measurementListWindow->getMeasurementCsvFileSavePathLocation();
+        QFile csvFileMeasurement(measurementCsvFileSavePathLocation);
+        csvFileMeasurement.open(QFile::WriteOnly);
 
         /* Fill the file with data */
-        int listLength = measurementListWindow->getMeasurementLengthList();
+        int listLength = measurementListWindow->getMeasurementListLength();
         QString measurementComment = measurementListWindow->getMeasurementComment();
         while(loggingThreadActive){
 
             /* Clear the lists */
             measurementValueList.clear();
             measurementNameList.clear();
+            measurementColumnList.clear();
 
             /* Fill the list */
             for(int i = 0; i < listLength; i++){
                 /* Get the values */
                 float measurementValue;
                 QString measurementName;
-                bool isUsed = measurementListWindow->getMeasurementNameAndValue(i, measurementName, measurementValue);
-
-                /* Check if it was not used */
-                if(!isUsed)
-                    continue;
+                QString columName;
+                measurementListWindow->getColumnNameMeasurementNameAndValue(i, columName, measurementName, measurementValue);
 
                 /* Insert into the lists */
                 measurementValueList.append(measurementValue);
                 measurementNameList.append(measurementName);
+                measurementColumnList.append(columName);
             }
 
             /* Create the plot */
@@ -65,48 +65,49 @@ void LoggingThread::run(){
             /* Update the plot - Both lists have the same length */
             emit signalUpdateChartWithMeasurements(measurementValueList, measurementNameList);
 
-            /* Save the data to a file where currentDateTime, measurementComment, measurementHolderValues */
-            QMap<QString, float> measurementHolderValues;
-            for(int i = 0; i < measurementValueList.length(); i++){
-                float measurementValue = measurementValueList.at(i);
-                QString measurementName = measurementNameList.at(i);
-                measurementHolderValues[measurementName] = measurementValue;
-            }
+            /* Get the date time */
             QString currentDateTime = QDateTime::currentDateTime().toString(Qt::DateFormat::ISODateWithMs);
 
             /* Save a CSV line - If yes, only write values, else write the header in form of text */
-            QString csvRow = "";
+            QString measurementRow = "";
             if(hasCSVHeaderBeenCreated){
                 /* Add date time */
-                csvRow += currentDateTime + ",";
+                measurementRow += currentDateTime + ",";
 
                 /* Add measurement comment */
-                csvRow += measurementComment + ",";
+                measurementRow += measurementComment + ",";
 
-                /* Add the measurements */
-                QMapIterator<QString, float> mapIterator(measurementHolderValues);
-                while (mapIterator.hasNext()) {
-                    mapIterator.next();
-                    if(mapIterator.hasNext())
-                        csvRow += QString::number(mapIterator.value()) + ",";
+                /* Add the measurements values */
+                for(int i = 0; i < measurementValueList.length(); i++){
+                    if(i < measurementValueList.length() - 1)
+                        measurementRow += QString::number(measurementValueList.at(i)) + ",";
                     else
-                        csvRow += QString::number(mapIterator.value()) + "\n";
+                        measurementRow += QString::number(measurementValueList.at(i)) + "\n";
                 }
+
             }else{
+                /* Name of the columns */
+                QString columnNames = QString(MEASUREMENT_DATE_TIME) + "," + QString(MEASUREMENT_COMMENT) + ",";
+                for(int i = 0; i < measurementColumnList.length(); i++){
+                    if(i < measurementColumnList.length() - 1)
+                        columnNames += measurementColumnList.at(i) + ",";
+                    else
+                        columnNames += measurementColumnList.at(i) + "\n";
+                }
+                csvFileMeasurement.write(columnNames.toUtf8());
+
                 /* Add date time */
-                csvRow += QString(MEASUREMENT_DATE_TIME) + ",";
+                measurementRow += QString(MEASUREMENT_DATE_TIME) + ",";
 
                 /* Add measurement comment */
-                csvRow += QString(MEASUREMENT_COMMENT) + ",";
+                measurementRow += QString(MEASUREMENT_COMMENT) + ",";
 
-                /* Add the measurements */
-                QMapIterator<QString, float> mapIterator(measurementHolderValues);
-                while (mapIterator.hasNext()) {
-                    mapIterator.next();
-                    if(mapIterator.hasNext())
-                        csvRow += mapIterator.key() + ",";
+                /* Add the measurements names */
+                for(int i = 0; i < measurementNameList.length(); i++){
+                    if(i < measurementNameList.length() - 1)
+                        measurementRow += measurementNameList.at(i) + ",";
                     else
-                        csvRow += mapIterator.key() + "\n";
+                        measurementRow += measurementNameList.at(i) + "\n";
                 }
 
                 /* Flag */
@@ -114,14 +115,14 @@ void LoggingThread::run(){
             }
 
             /* Write line */
-            csvFile.write(csvRow.toUtf8());
+            csvFileMeasurement.write(measurementRow.toUtf8());
 
             /* Sleep */
             msleep(sampleTime);
         }
 
         /* Close file */
-        csvFile.close();
+        csvFileMeasurement.close();
     }
 }
 

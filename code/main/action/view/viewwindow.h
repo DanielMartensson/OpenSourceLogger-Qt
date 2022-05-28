@@ -33,8 +33,6 @@ private slots:
 
     void on_toRowSpinBox_valueChanged(int arg1);
 
-    void on_deleteColumnsPushButton_clicked();
-
     void on_jumpRowSpinBox_valueChanged(int arg1);
 
 private:

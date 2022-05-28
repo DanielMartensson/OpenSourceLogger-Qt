@@ -1,5 +1,0 @@
-../Core/Src/STM32 PLC/Analog_Input.c:17:6:STM32_PLC_Analog_Input	24	static
-../Core/Src/STM32 PLC/Analog_Input.c:55:6:STM32_PLC_Analog_Input_Get_Gain	0	static
-../Core/Src/STM32 PLC/Analog_Input.c:75:6:STM32_PLC_Analog_Input_Set_Gain	48	static
-../Core/Src/STM32 PLC/Analog_Input.c:161:10:STM32_PLC_Analog_Input_ADC_Get_Raw	0	static
-../Core/Src/STM32 PLC/Analog_Input.c:205:9:STM32_PLC_Analog_Input_DADC_Get_Raw	0	static

@@ -6,6 +6,7 @@
 /* Tools */
 #include "code/tools/opensaej1939/Open_SAE_J1939/Open_SAE_J1939.h"
 #include "code/tools/opensaej1939/ISO_11783/ISO_11783-7_Application_Layer/Application_Layer.h"
+#include "code/tools/database/database.h"
 
 /* Threads */
 #include "code/tools/threads/messageservicethread/messageservicethread.h"
@@ -80,7 +81,7 @@ private:
 
     /* Other fiedls */
     int index = 0;
-    uint8_t auxiliaryValveCommandStandardFlow[MAX_AUXILIARY_VALVE_COMMAND_STANDARD_FLOW] = {0};
+    uint8_t auxiliaryValveCommandStandardFlow[AUXILIARY_VALVE_LENGTH] = {0};
 
 };
 

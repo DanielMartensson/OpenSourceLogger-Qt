@@ -1,5 +1,6 @@
 #include "generalvalvecommandwindow.h"
 #include "ui_generalvalvecommandwindow.h"
+#include "code/tools/database/database.h"
 
 GeneralValveCommandWindow::GeneralValveCommandWindow(QWidget *parent, J1939 *j1939, MessageServiceThread *messageServiceThread, CallPeriodThread *callPeriodThread) :
     QWidget(parent),
@@ -76,7 +77,7 @@ void GeneralValveCommandWindow::shapeGeneralValueCommandExtendedFlowMessage(int 
     ISO_11783_Send_General_Purpose_Valve_Command(j1939, DA, standardFlow, FAIL_SAFE_MODE_BLOCKED, valveState, extendedFlow);
 
     /* Send to logging thread */
-    uint16_t generalValveCommandExtendedFlow[MAX_GENERAL_PURPOSE_VALVE_COMMAND] = {extendedFlow};
+    uint16_t generalValveCommandExtendedFlow[GENERAL_VALVE_LENGTH] = {extendedFlow};
     emit signalSetGeneralValveCommandExtendedFlow(generalValveCommandExtendedFlow);
 
     /* Send event signal for transmitting the message via USB to STM32 PLC */

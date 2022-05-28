@@ -25,6 +25,7 @@ SOURCES += \
     code/main/edit/stm32/stm32window.cpp \
     code/main/file/upload/uploadwindow.cpp \
     code/main/help/about/aboutwindow.cpp \
+    code/main/help/about/pinmapwindow.cpp \
     code/main/mainwindow.cpp \
     code/tools/database/database.cpp \
     code/tools/json/json.cpp \
@@ -80,6 +81,7 @@ HEADERS += \
     code/main/edit/stm32/stm32window.h \
     code/main/file/upload/uploadwindow.h \
     code/main/help/about/aboutwindow.h \
+    code/main/help/about/pinmapwindow.h \
     code/main/mainwindow.h \
     code/tools/database/database.h \
     code/tools/json/json.h \
@@ -122,6 +124,7 @@ FORMS += \
     code/main/edit/stm32/stm32window.ui \
     code/main/file/upload/uploadwindow.ui \
     code/main/help/about/aboutwindow.ui \
+    code/main/help/about/pinmapwindow.ui \
     code/main/mainwindow.ui
 
 

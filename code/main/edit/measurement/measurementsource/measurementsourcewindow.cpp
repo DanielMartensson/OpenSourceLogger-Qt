@@ -2,6 +2,7 @@
 #include "ui_measurementsourcewindow.h"
 #include "../measurementlistwindow.h"
 #include <QRegularExpressionValidator>
+#include "code/tools/database/database.h"
 
 MeasurementSourceWindow::MeasurementSourceWindow(QWidget *parent, QListWidgetItem *measurementListName, MessageServiceThread *messageServiceThread, QString measurementSourceType, float minRawValue, float maxRawValue, float minMeasurement, float maxMeasurement, QString measurementName) :
     QWidget(parent),
@@ -44,60 +45,62 @@ void MeasurementSourceWindow::closeEvent(QCloseEvent *event)
 }
 
 
-bool MeasurementSourceWindow::getMeasurementNameAndValue(QString &measurementName, float &measurementValue)
+void MeasurementSourceWindow::getColumnNameMeasurementNameAndValue(QString &columName, QString &measurementName, float &measurementValue)
 {
     /* Do first calibration */
     float minRawValue = ui->minRawValueDoubleSpinBox->value();
     float maxRawValue = ui->maxRawValueDoubleSpinBox->value();
     float minMeasurement = ui->minMeasurementDoubleSpinBox->value();
     float maxMeasurement = ui->maxMeasurementDoubleSpinBox->value();
-    float slope = (maxMeasurement - minMeasurement)/(maxRawValue - minRawValue);
+    float div = maxRawValue - minRawValue != 0.0f ? maxRawValue - minRawValue : 1.0f;
+    float slope = (maxMeasurement - minMeasurement)/div;
     float bias = maxMeasurement - slope*maxRawValue;
+    columName = this->windowTitle(); /* This is the database name in the CSV files */
 
     /* Get the raw value */
     float rawValue = 0;
-    for(int i = 0; i < MAX_ADC; i++){
-        QString sourceType = MEASUREMENT_SOURCE_ADC + QString::number(i);
+    for(int i = 0; i < ADC_LENGTH; i++){
+        QString sourceType = ADC + QString::number(i);
         if(measurementSourceType == sourceType)
             rawValue = messageServiceThread->getAnalogSingleInput(i);
     }
-    for(int i = 0; i < MAX_DADC; i++){
-        QString sourceType = MEASUREMENT_SOURCE_DADC + QString::number(i);
+    for(int i = 0; i < DADC_LENGTH; i++){
+        QString sourceType = DADC + QString::number(i);
         if(measurementSourceType == sourceType)
             rawValue = messageServiceThread->getAnalogDifferentialInput(i);
     }
-    for(int i = 0; i < MAX_ENCODER; i++){
-        QString sourceType = MEASUREMENT_SOURCE_ENCODER + QString::number(i);
+    for(int i = 0; i < ENCODER_LENGTH; i++){
+        QString sourceType = ENCODER + QString::number(i);
         if(measurementSourceType == sourceType)
             rawValue = messageServiceThread->getEncoderInput(i);
     }
-    for(int i = 0; i < MAX_INPUT_CAPTURE; i++){
-        QString sourceType = MEASUREMENT_SOURCE_INPUT_CAPTURE + QString::number(i);
+    for(int i = 0; i < IC_LENGTH; i++){
+        QString sourceType = IC + QString::number(i);
         if(measurementSourceType == sourceType)
             rawValue = messageServiceThread->getInputCapture(i);
     }
-    for(int i = 0; i < MAX_DIGITAL_INPUT; i++){
-        QString sourceType = MEASUREMENT_SOURCE_DIGITAL_INPUT + QString::number(i);
+    for(int i = 0; i < DI_LENGTH; i++){
+        QString sourceType = DI + QString::number(i);
         if(measurementSourceType == sourceType)
             rawValue = messageServiceThread->getDigitalInput(i);
     }
-    for(int i = 0; i < MAX_PWM; i++){
-        QString sourceType = MEASUREMENT_SOURCE_PWM+ QString::number(i);
+    for(int i = 0; i < PWM_LENGTH; i++){
+        QString sourceType = PWM+ QString::number(i);
         if(measurementSourceType == sourceType)
-            rawValue = messageServiceThread->getPWM(i);
+            rawValue = messageServiceThread->getPWMControl(i);
     }
-    for(int i = 0; i < MAX_DAC; i++){
-        QString sourceType = MEASUREMENT_SOURCE_DAC + QString::number(i);
+    for(int i = 0; i < DAC_LENGTH; i++){
+        QString sourceType = DAC + QString::number(i);
         if(measurementSourceType == sourceType)
             rawValue = messageServiceThread->getAnalogSingleOutput(i);
     }
-    for(int i = 0; i < MAX_AUXILIARY_VALVE_COMMAND_STANDARD_FLOW; i++){
-        QString sourceType = MEASUREMENT_SOURCE_AUXILIARY_VALVE + QString::number(i);
+    for(int i = 0; i < AUXILIARY_VALVE_LENGTH; i++){
+        QString sourceType = AUXILIARY_VALVE + QString::number(i);
         if(measurementSourceType == sourceType)
             rawValue = messageServiceThread->getAuxiliaryValveCommand(i);
     }
-    for(int i = 0; i < MAX_GENERAL_PURPOSE_VALVE_COMMAND; i++){
-        QString sourceType = MEASUREMENT_SOURCE_GENERAL_VALVE + QString::number(i);
+    for(int i = 0; i < GENERAL_VALVE_LENGTH; i++){
+        QString sourceType = GENERAL_VALVE + QString::number(i);
         if(measurementSourceType == sourceType)
             rawValue = messageServiceThread->getGeneralPurposeValveCommand(i);
     }
@@ -106,7 +109,6 @@ bool MeasurementSourceWindow::getMeasurementNameAndValue(QString &measurementNam
     /* Set the value y = k*x + m */
     measurementValue = slope*rawValue + bias;
     measurementName = ui->measurementNameLineEdit->text();
-    return true;
 }
 
 QString MeasurementSourceWindow::getMeasurementSourceType(){

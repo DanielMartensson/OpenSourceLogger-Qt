@@ -4,7 +4,10 @@
 
 CallPeriodThread::CallPeriodThread()
 {
-
+    /* This thread is used for
+     * * Auxiliary Valve Command for the CAN-bus system
+     * * ...
+     */
 }
 
 void CallPeriodThread::run(){

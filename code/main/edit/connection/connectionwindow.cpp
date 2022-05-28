@@ -14,6 +14,9 @@ ConnectionWindow::ConnectionWindow(QWidget *parent, Database *database, USB *usb
 {
     ui->setupUi(this);
 
+    /* Load database drivers combo box */
+    ui->databaseDriverComboBox->addItems({QMYSQL, MARIADB, QODBC});
+
     /* Load the settings */
     Json json;
     QJsonObject object = json.loadObject("ConnectionWindow.json");
@@ -83,6 +86,9 @@ void ConnectionWindow::on_usbConnectPushButton_clicked()
 
 void ConnectionWindow::on_usbDisconnectPushButton_clicked()
 {
+    /* Close message service thread */
+    emit signalSetThreadActive(false);
+
     /* Close */
     usb->close();
 
@@ -108,13 +114,75 @@ void ConnectionWindow::on_databaseConnectPushButton_clicked()
     if(result){
         /* Enable and send out message */
         enableDatabaseConnectionComponents(false);
+
+        /* Create columns for measurement - Need to have the same size as column names table */
+        QList<QPair<QString, QString>> tableColumns;
+        tableColumns.append(QPair<QString, QString>(TABLE_ID, SQL_DATATYPE_LONG));
+        tableColumns.append(QPair<QString, QString>(MEASUREMENT_ID, SQL_DATATYPE_LONG));
+        tableColumns.append(QPair<QString, QString>(MEASUREMENT_COMMENT, SQL_DATATYPE_STRING));
+        if(ui->databaseDriverComboBox->currentText() == QMYSQL)
+            tableColumns.append(QPair<QString, QString>(MEASUREMENT_DATE_TIME, SQL_DATETYPE_DATETIME_MYSQL));
+        else if(ui->databaseDriverComboBox->currentText() == MARIADB)
+            tableColumns.append(QPair<QString, QString>(MEASUREMENT_DATE_TIME, SQL_DATETYPE_DATETIME_MARIADB));
+        else if(ui->databaseDriverComboBox->currentText() == QODBC)
+            tableColumns.append(QPair<QString, QString>(MEASUREMENT_DATE_TIME, SQL_DATATYPE_DATETIME_QODBC));
+        for(int i = 0; i < ADC_LENGTH; i++)
+            tableColumns.append(QPair<QString, QString>(ADC + QString::number(i), SQL_DATATYPE_FLOAT));
+        for(int i = 0; i < DADC_LENGTH; i++)
+            tableColumns.append(QPair<QString, QString>(DADC + QString::number(i), SQL_DATATYPE_FLOAT));
+        for(int i = 0; i < DAC_LENGTH; i++)
+            tableColumns.append(QPair<QString, QString>(DAC + QString::number(i), SQL_DATATYPE_FLOAT));
+        for(int i = 0; i < PWM_LENGTH; i++)
+            tableColumns.append(QPair<QString, QString>(PWM + QString::number(i), SQL_DATATYPE_FLOAT));
+        for(int i = 0; i < DI_LENGTH; i++)
+            tableColumns.append(QPair<QString, QString>(DI + QString::number(i), SQL_DATATYPE_FLOAT));
+        for(int i = 0; i < IC_LENGTH; i++)
+            tableColumns.append(QPair<QString, QString>(IC + QString::number(i), SQL_DATATYPE_FLOAT));
+        for(int i = 0; i < ENCODER_LENGTH; i++)
+            tableColumns.append(QPair<QString, QString>(ENCODER + QString::number(i), SQL_DATATYPE_FLOAT));
+        for(int i = 0; i < AUXILIARY_VALVE_LENGTH; i++)
+            tableColumns.append(QPair<QString, QString>(AUXILIARY_VALVE + QString::number(i), SQL_DATATYPE_FLOAT));
+        for(int i = 0; i < GENERAL_VALVE_LENGTH; i++)
+            tableColumns.append(QPair<QString, QString>(GENERAL_VALVE + QString::number(i), SQL_DATATYPE_FLOAT));
+        /* Add more here */
+
+        /* Create table */
+        database->createTable(MEASUREMENT_TABLE, tableColumns);
+
+        /* Create columns for column names - Need to have the same size as measurement table */
+        tableColumns.clear();
+        tableColumns.append(QPair<QString, QString>(TABLE_ID, SQL_DATATYPE_LONG));
+        tableColumns.append(QPair<QString, QString>(MEASUREMENT_ID, SQL_DATATYPE_LONG));
+        tableColumns.append(QPair<QString, QString>(MEASUREMENT_COMMENT, SQL_DATATYPE_STRING));
+        tableColumns.append(QPair<QString, QString>(MEASUREMENT_DATE_TIME, SQL_DATATYPE_STRING));
+        for(int i = 0; i < ADC_LENGTH; i++)
+            tableColumns.append(QPair<QString, QString>(ADC + QString::number(i), SQL_DATATYPE_STRING));
+        for(int i = 0; i < DADC_LENGTH; i++)
+            tableColumns.append(QPair<QString, QString>(DADC + QString::number(i), SQL_DATATYPE_STRING));
+        for(int i = 0; i < DAC_LENGTH; i++)
+            tableColumns.append(QPair<QString, QString>(DAC + QString::number(i), SQL_DATATYPE_STRING));
+        for(int i = 0; i < PWM_LENGTH; i++)
+            tableColumns.append(QPair<QString, QString>(PWM + QString::number(i), SQL_DATATYPE_STRING));
+        for(int i = 0; i < DI_LENGTH; i++)
+            tableColumns.append(QPair<QString, QString>(DI + QString::number(i), SQL_DATATYPE_STRING));
+        for(int i = 0; i < IC_LENGTH; i++)
+            tableColumns.append(QPair<QString, QString>(IC + QString::number(i), SQL_DATATYPE_STRING));
+        for(int i = 0; i < ENCODER_LENGTH; i++)
+            tableColumns.append(QPair<QString, QString>(ENCODER + QString::number(i), SQL_DATATYPE_STRING));
+        for(int i = 0; i < AUXILIARY_VALVE_LENGTH; i++)
+            tableColumns.append(QPair<QString, QString>(AUXILIARY_VALVE + QString::number(i), SQL_DATATYPE_STRING));
+        for(int i = 0; i < GENERAL_VALVE_LENGTH; i++)
+            tableColumns.append(QPair<QString, QString>(GENERAL_VALVE + QString::number(i), SQL_DATATYPE_STRING));
+        /* Add more here */
+
+        /* Create table */
+        database->createTable(COLUMN_NAMES_TABLE, tableColumns);
+
         QMessageBox::information(this, "Connected", "You are connected to the database!", QMessageBox::Ok);
 
         /* Save to JSON */
         saveAllToJSON();
 
-        /* Close message service thread */
-        emit signalSetThreadActive(false);
     }else{
         enableDatabaseConnectionComponents(true);
         QMessageBox::critical(this, "Not connected", "Could not connect to the database! Available drivers: " + QSqlDatabase::drivers().join(","), QMessageBox::Ok);

@@ -83,7 +83,7 @@ void MessageServiceThread::run(){
 
 
 void MessageServiceThread::slotSetPWMSignal(int index, uint16_t value){
-    PWM[index] = value;
+    pwmControl[index] = value;
 }
 
 
@@ -111,8 +111,9 @@ void MessageServiceThread::slotReadUSBData(uint8_t data[], uint32_t length){
             byteIndex = readCanBusMessageFromSTM32PLC(data, byteIndex);
             break;
         default:
-            QMessageBox::warning(nullptr, "USB error", "Missing data in USB communication - Sample time too low");
+            QMessageBox::warning(nullptr, "USB error in messageservicethread.cpp file", "Missing data in USB communication - Sample time too fast or wrong data sent");
             byteIndex = length;
+            slotSetThreadActive(false);
             break;
         }
     }
@@ -177,31 +178,30 @@ uint32_t MessageServiceThread::readPWMPrescalersFromSTM32PLC(uint8_t data[], uin
 
 uint32_t MessageServiceThread::readMeasurementsFromSTM32PLC(uint8_t data[], uint32_t byteIndex){
     /* Digital inputs */
-    for(int i = 0; i < MAX_DIGITAL_INPUT; i++)
+    for(int i = 0; i < DI_LENGTH; i++)
         digitalInput[i] = data[byteIndex++];
 
     /* Analog single inputs */
-    for(int i = 0; i < MAX_ADC; i++){
+    for(int i = 0; i < ADC_LENGTH; i++){
         analogSingleInput[i] = (data[byteIndex] << 8) | data[byteIndex + 1];
         byteIndex += 2;
     }
 
     /* Analog differential inputs */
-    for(int i = 0; i < MAX_DADC; i++){
+    for(int i = 0; i < DADC_LENGTH; i++){
         analogDifferentialInput[i] = (data[byteIndex] << 8) | data[byteIndex + 1];
         byteIndex += 2;
     }
 
     /* Inputs capture */
-    for(int i = 0; i < MAX_INPUT_CAPTURE; i++){
+    for(int i = 0; i < IC_LENGTH; i++){
         uint16_t period = (data[byteIndex] << 8) | data[byteIndex + 1];
-        period = period > 0 ? period : 1; /* We don't want to divide with 0, even if the minimum period is 1 from input capture */
-        inputCapture[i] = 1/(period*0.0001); /* 0.0001 because the input capture clock is at 10 kHz */
+        inputCapture[i] = 1.0f/(((float)period)*0.0001f); /* 0.0001 because the input capture clock is at 10 kHz */
         byteIndex += 2;
     }
 
     /* Encoder inputs */
-    for(int i = 0; i < MAX_ENCODER; i++){
+    for(int i = 0; i < ENCODER_LENGTH; i++){
         encoderInput[i] = (data[byteIndex] << 8) | data[byteIndex];
         byteIndex += 2;
     }
@@ -286,7 +286,7 @@ uint16_t MessageServiceThread::getAnalogSingleInput(int index){
     return analogSingleInput[index];
 }
 
-uint16_t MessageServiceThread::getAnalogDifferentialInput(int index){
+int16_t MessageServiceThread::getAnalogDifferentialInput(int index){
     return analogDifferentialInput[index];
 }
 
@@ -298,7 +298,7 @@ int16_t MessageServiceThread::getEncoderInput(int index){
     return encoderInput[index];
 }
 
-uint16_t MessageServiceThread::getPWM(int index){
+uint16_t MessageServiceThread::getPWMControl(int index){
     return PWM[index];
 }
 

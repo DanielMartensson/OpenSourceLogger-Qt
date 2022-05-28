@@ -27,6 +27,8 @@ private:
     /* Upload to databse */
     Database *database;
     QString oldPath;
+    QStringList measurementNames;
+    QStringList columnNames;
 };
 
 #endif // UPLOADWINDOW_H

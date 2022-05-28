@@ -4,6 +4,7 @@
 #include <QFile>
 #include <QMessageBox>
 #include "code/tools/json/json.h"
+#include "code/tools/database/database.h"
 
 MeasurementListWindow::MeasurementListWindow(QWidget *parent, MessageServiceThread *messageServiceThread) :
     QWidget(parent),
@@ -13,24 +14,24 @@ MeasurementListWindow::MeasurementListWindow(QWidget *parent, MessageServiceThre
     ui->setupUi(this);
 
     /* Set the items for the measurement source combo box */
-    for(int i = 0; i < MAX_ADC; i++)
-        measurementSourcesTypes.append(MEASUREMENT_SOURCE_ADC + QString::number(i));
-    for(int i = 0; i < MAX_DADC; i++)
-        measurementSourcesTypes.append(MEASUREMENT_SOURCE_DADC + QString::number(i));
-    for(int i = 0; i < MAX_ENCODER; i++)
-        measurementSourcesTypes.append(MEASUREMENT_SOURCE_ENCODER + QString::number(i));
-    for(int i = 0; i < MAX_INPUT_CAPTURE; i++)
-        measurementSourcesTypes.append(MEASUREMENT_SOURCE_INPUT_CAPTURE + QString::number(i));
-    for(int i = 0; i < MAX_DIGITAL_INPUT; i++)
-        measurementSourcesTypes.append(MEASUREMENT_SOURCE_DIGITAL_INPUT + QString::number(i));
-    for(int i = 0; i < MAX_PWM; i++)
-        measurementSourcesTypes.append(MEASUREMENT_SOURCE_PWM + QString::number(i));
-    for(int i = 0; i < MAX_DAC; i++)
-        measurementSourcesTypes.append(MEASUREMENT_SOURCE_DAC + QString::number(i));
-    for(int i = 0; i < MAX_AUXILIARY_VALVE_COMMAND_STANDARD_FLOW; i++)
-        measurementSourcesTypes.append(MEASUREMENT_SOURCE_AUXILIARY_VALVE + QString::number(i));
-    for(int i = 0; i < MAX_GENERAL_PURPOSE_VALVE_COMMAND; i++)
-        measurementSourcesTypes.append(MEASUREMENT_SOURCE_GENERAL_VALVE + QString::number(i));
+    for(int i = 0; i < ADC_LENGTH; i++)
+        measurementSourcesTypes.append(ADC + QString::number(i));
+    for(int i = 0; i < DADC_LENGTH; i++)
+        measurementSourcesTypes.append(DADC + QString::number(i));
+    for(int i = 0; i < ENCODER_LENGTH; i++)
+        measurementSourcesTypes.append(ENCODER + QString::number(i));
+    for(int i = 0; i < IC_LENGTH; i++)
+        measurementSourcesTypes.append(IC + QString::number(i));
+    for(int i = 0; i < DI_LENGTH; i++)
+        measurementSourcesTypes.append(DI + QString::number(i));
+    for(int i = 0; i < PWM_LENGTH; i++)
+        measurementSourcesTypes.append(PWM + QString::number(i));
+    for(int i = 0; i < DAC_LENGTH; i++)
+        measurementSourcesTypes.append(DAC + QString::number(i));
+    for(int i = 0; i < AUXILIARY_VALVE_LENGTH; i++)
+        measurementSourcesTypes.append(AUXILIARY_VALVE + QString::number(i));
+    for(int i = 0; i < GENERAL_VALVE_LENGTH; i++)
+        measurementSourcesTypes.append(GENERAL_VALVE + QString::number(i));
     /* Add more here */
 
     /* Load the previous settings */
@@ -59,6 +60,7 @@ MeasurementListWindow::MeasurementListWindow(QWidget *parent, MessageServiceThre
             addMeasurementToList(measurementSourceType, minRawValue, maxRawValue, minMeasurement, maxMeasurement, measurementName);
         }
     }
+
 }
 
 
@@ -106,8 +108,10 @@ void MeasurementListWindow::closeEvent(QCloseEvent *event){
 
 void MeasurementListWindow::on_addMeasurementPushButton_clicked()
 {
+    /* Max measurement */
+    int maxMeasurementList = ADC_LENGTH + DADC_LENGTH + DI_LENGTH + ENCODER_LENGTH + IC_LENGTH + DAC_LENGTH + PWM_LENGTH + AUXILIARY_VALVE_LENGTH + GENERAL_VALVE_LENGTH;
+
     /* Check if we have too much */
-    int maxMeasurementList = MAX_ADC + MAX_DADC + MAX_DIGITAL_INPUT + MAX_ENCODER + MAX_INPUT_CAPTURE + MAX_DAC + MAX_PWM + MAX_AUXILIARY_VALVE_COMMAND_STANDARD_FLOW + MAX_GENERAL_PURPOSE_VALVE_COMMAND;
     if(ui->measurementListWidget->count() >= maxMeasurementList)
         return;
 
@@ -156,7 +160,7 @@ void MeasurementListWindow::on_deleteMeasurementPushButton_clicked()
 }
 
 
-int MeasurementListWindow::getMeasurementLengthList(){
+int MeasurementListWindow::getMeasurementListLength(){
     return measurementList.size();
 }
 
@@ -166,12 +170,12 @@ QString MeasurementListWindow::getMeasurementComment(){
 }
 
 
-bool MeasurementListWindow::getMeasurementNameAndValue(int row, QString &measurementName, float &measurementValue){
-    return measurementList.at(row)->getMeasurementNameAndValue(measurementName, measurementValue);
+void MeasurementListWindow::getColumnNameMeasurementNameAndValue(int row, QString &columName, QString &measurementName, float &measurementValue){
+    measurementList.at(row)->getColumnNameMeasurementNameAndValue(columName, measurementName, measurementValue);
 }
 
 
-QString MeasurementListWindow::getCsvFileSavePathLocation(){
+QString MeasurementListWindow::getMeasurementCsvFileSavePathLocation(){
     return ui->csvSaveFileLocationLineEdit->text();
 }
 
