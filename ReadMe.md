@@ -90,4 +90,4 @@ And the results
 ![a](https://raw.githubusercontent.com/DanielMartensson/OpenSourceLogger/main/pictures/FromDatabase.PNG)
 
 # Status of the project
-It's working and I don't have any plans right now to add new functionality(. Perhaps in the future if it's needed e.g CANopen. Right now everything is working and it will remain like that for now.
+It's working and I don't have any plans right now to add new functionality(perhaps in the future if it's needed e.g CANopen). Right now everything is working and it will remain like that for now.
