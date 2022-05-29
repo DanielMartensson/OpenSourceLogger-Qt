@@ -30,7 +30,7 @@ This software has the following
 5. Download the [MySQL Driver For QT](https://github.com/thecodemonkey86/qt_mysql_driver) and extract `release\sqldrivers\qsqlmysql.dll` to `C:\QT6.3.0\mingw_64\plugins\sqldrivers`
 6. Start the `.pro` project with QT Creator and compile the project with `release` configuration, not debug configuration.
 7. Make sure that everything is working e.g connect to database and connect to USB. 
-8. If everything is working, then deploy it e.g `c:\QT\6.3.0\mingw_64\bin>windeployqt.exe --release "C:\Users\danie\Documents\GitHub-Workspace\build-OpenSourceLogger-Desktop_Qt_6_3_0_MinGW_64_bit-Release\release\OpenSourceLogger.exe" Make sure that `OpenSourceLogger.exe` is empty in the folder `release`.
+8. If everything is working, then deploy it e.g `c:\QT\6.3.0\mingw_64\bin>windeployqt.exe --release "C:\Users\danie\Documents\GitHub-Workspace\build-OpenSourceLogger-Desktop_Qt_6_3_0_MinGW_64_bit-Release\release\OpenSourceLogger.exe"` Make sure that `OpenSourceLogger.exe` is empty in the folder `release`.
 9. Then extract `release\sqldrivers\qsqlmysql.dll` from your `.zip` file to your `sqldrivers` folder in your `release` folder
 10. Extract also the rest of the `.dll` files at the same folder location as `OpenSourceLogger.exe` is. Done!
 
