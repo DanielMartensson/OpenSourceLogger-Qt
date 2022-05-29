@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>760</width>
-    <height>536</height>
+    <width>816</width>
+    <height>692</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -155,12 +155,6 @@
          <string>Transmit gain</string>
         </property>
         <layout class="QGridLayout" name="gridLayout_3">
-         <item row="0" column="1">
-          <widget class="QComboBox" name="sdadcConfigurationIndexComboBox"/>
-         </item>
-         <item row="2" column="1">
-          <widget class="QComboBox" name="sdadcGainComboBox"/>
-         </item>
          <item row="2" column="0">
           <widget class="QLabel" name="label_11">
            <property name="text">
@@ -181,12 +175,18 @@
            </property>
           </widget>
          </item>
+         <item row="0" column="1">
+          <widget class="QComboBox" name="sdadcConfigurationIndexComboBox"/>
+         </item>
          <item row="3" column="0" colspan="2">
           <widget class="QPushButton" name="sendInputGainPushButton">
            <property name="text">
             <string>Send input gain</string>
            </property>
           </widget>
+         </item>
+         <item row="2" column="1">
+          <widget class="QComboBox" name="sdadcGainComboBox"/>
          </item>
         </layout>
        </widget>
@@ -242,6 +242,215 @@
          </widget>
         </item>
        </layout>
+      </item>
+      <item row="3" column="1" colspan="2">
+       <widget class="QGroupBox" name="groupBox_7">
+        <property name="title">
+         <string>Clock and alarm</string>
+        </property>
+        <layout class="QGridLayout" name="gridLayout_8">
+         <item row="0" column="3" rowspan="4">
+          <widget class="QGroupBox" name="groupBox_9">
+           <property name="title">
+            <string>Alarm B settings</string>
+           </property>
+           <layout class="QGridLayout" name="gridLayout_10">
+            <item row="1" column="1">
+             <widget class="QTimeEdit" name="alarmBTimeEdit"/>
+            </item>
+            <item row="0" column="1">
+             <widget class="QComboBox" name="weekDayComboBox"/>
+            </item>
+            <item row="0" column="0">
+             <widget class="QLabel" name="label_18">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="text">
+               <string>Week day:</string>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="0">
+             <widget class="QPushButton" name="receiveAlarmBPushButton">
+              <property name="text">
+               <string>Receive alarm B</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="0">
+             <widget class="QLabel" name="label_21">
+              <property name="text">
+               <string>Time:</string>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="1">
+             <widget class="QPushButton" name="sendAlarmBPushButton">
+              <property name="text">
+               <string>Send alarm B</string>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="0">
+             <widget class="QCheckBox" name="alarmBEnabledCheckBox">
+              <property name="text">
+               <string>Alarm B enabled</string>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="1">
+             <widget class="QCheckBox" name="alarmBActivatedCheckBox">
+              <property name="enabled">
+               <bool>true</bool>
+              </property>
+              <property name="text">
+               <string>Alarm B activated</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </item>
+         <item row="0" column="2" rowspan="4">
+          <widget class="QGroupBox" name="groupBox_8">
+           <property name="title">
+            <string>Alarm A settings</string>
+           </property>
+           <layout class="QGridLayout" name="gridLayout_9">
+            <item row="1" column="0">
+             <widget class="QLabel" name="label_20">
+              <property name="text">
+               <string>Time:</string>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="1">
+             <widget class="QSpinBox" name="dateAlarmASpinBox">
+              <property name="minimum">
+               <number>1</number>
+              </property>
+              <property name="maximum">
+               <number>31</number>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="0">
+             <widget class="QLabel" name="label_17">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="text">
+               <string>Date:</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="1">
+             <widget class="QTimeEdit" name="alarmATimeEdit"/>
+            </item>
+            <item row="3" column="1">
+             <widget class="QPushButton" name="sendAlarmAPushButton">
+              <property name="text">
+               <string>Send alarm A</string>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="0">
+             <widget class="QPushButton" name="receiveAlarmAPushButton">
+              <property name="text">
+               <string>Receive alarm A</string>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="0">
+             <widget class="QCheckBox" name="alarmAEnabledCheckBox">
+              <property name="text">
+               <string>Alarm A enabled</string>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="1">
+             <widget class="QCheckBox" name="alarmAActivatedCheckBox">
+              <property name="enabled">
+               <bool>true</bool>
+              </property>
+              <property name="text">
+               <string>Alarm A activated</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </item>
+         <item row="0" column="1" rowspan="4">
+          <widget class="QGroupBox" name="groupBox_10">
+           <property name="title">
+            <string>Clock</string>
+           </property>
+           <layout class="QGridLayout" name="gridLayout_11">
+            <item row="1" column="0">
+             <widget class="QPushButton" name="receiveDateTimePushButton">
+              <property name="text">
+               <string>Receive date time</string>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="0">
+             <widget class="QDateTimeEdit" name="dateTimeEdit">
+              <property name="date">
+               <date>
+                <year>2000</year>
+                <month>1</month>
+                <day>1</day>
+               </date>
+              </property>
+              <property name="time">
+               <time>
+                <hour>0</hour>
+                <minute>0</minute>
+                <second>0</second>
+               </time>
+              </property>
+              <property name="maximumDateTime">
+               <datetime>
+                <hour>23</hour>
+                <minute>59</minute>
+                <second>59</second>
+                <year>2099</year>
+                <month>12</month>
+                <day>31</day>
+               </datetime>
+              </property>
+              <property name="minimumDateTime">
+               <datetime>
+                <hour>0</hour>
+                <minute>0</minute>
+                <second>0</second>
+                <year>2000</year>
+                <month>1</month>
+                <day>1</day>
+               </datetime>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="0">
+             <widget class="QPushButton" name="sendDateTimePushButton">
+              <property name="text">
+               <string>Send date time</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </item>
+        </layout>
+       </widget>
       </item>
      </layout>
     </widget>

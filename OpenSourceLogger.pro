@@ -8,6 +8,8 @@ CONFIG += c++11
 # In order to do so, uncomment the following line.
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
+RC_ICONS = application_icon.ico
+
 SOURCES += \
     code/main/action/control/canfunctionswindows/can/canterminalwindow/canterminalwindow.cpp \
     code/main/action/control/canfunctionswindows/saeJ1939/auxiliaryvalvecommandwindow/auxiliaryvalvecommandwindow.cpp \

@@ -15,7 +15,13 @@ typedef enum{
     READ_SET_ANALOG_INPUT_GAIN_MESSAGE_TYPE,
     READ_SET_PWM_PRESCALER_MESSAGE_TYPE,
     SEND_BACK_PWM_PRESCALERS_MESSAGE_TYPE,
-    SEND_BACK_ANALOG_GAINS_MESSAGE_TYPE
+    SEND_BACK_ANALOG_GAINS_MESSAGE_TYPE,
+    READ_SET_DATE_TIME_MESSAGE_TYPE,
+    SEND_BACK_DATE_TIME_MESSAGE_TYPE,
+    READ_SET_ALARM_A_MESSAGE_TYPE,
+    SEND_BACK_ALARM_A_MESSAGE_TYPE,
+    READ_SET_ALARM_B_MESSAGE_TYPE,
+    SEND_BACK_ALARM_B_MESSAGE_TYPE
 }MESSAGE_TYPES;
 
 /* SAE J1939 callback function for sending a message */
@@ -110,6 +116,15 @@ void MessageServiceThread::slotReadUSBData(uint8_t data[], uint32_t length){
         case SEND_CAN_BUS_MESSAGE_TYPE:
             byteIndex = readCanBusMessageFromSTM32PLC(data, byteIndex);
             break;
+        case SEND_BACK_DATE_TIME_MESSAGE_TYPE:
+            byteIndex = readDateTimeFromSTM32PLC(data, byteIndex);
+            break;
+        case SEND_BACK_ALARM_A_MESSAGE_TYPE:
+            byteIndex = readAlarmAFromSTM32PLC(data, byteIndex);
+            break;
+        case SEND_BACK_ALARM_B_MESSAGE_TYPE:
+            byteIndex = readAlarmBFromSTM32PLC(data, byteIndex);
+            break;
         default:
             QMessageBox::warning(nullptr, "USB error in messageservicethread.cpp file", "Missing data in USB communication - Sample time too fast or wrong data sent");
             byteIndex = length;
@@ -144,6 +159,38 @@ int MessageServiceThread::slotSetPWMPrescalerToSTM32PLC(uint8_t pwmPeripheral, u
     return emit signalTransmitUSBData(usbDataRaw);
 }
 
+int MessageServiceThread::slotSetDateTimeToSTM32PLC(uint8_t year, uint8_t month, uint8_t date, uint8_t weekDay, uint8_t hour, uint8_t minute){
+    QByteArray usbDataRaw;
+    usbDataRaw.append(READ_SET_DATE_TIME_MESSAGE_TYPE);
+    usbDataRaw.append(year);
+    usbDataRaw.append(month);
+    usbDataRaw.append(date);
+    usbDataRaw.append(weekDay);
+    usbDataRaw.append(hour);
+    usbDataRaw.append(minute);
+    return emit signalTransmitUSBData(usbDataRaw);
+}
+
+int MessageServiceThread::slotSetAlarmAToSTM32PLC(uint8_t date, uint8_t hour, uint8_t minute, uint8_t enable){
+    QByteArray usbDataRaw;
+    usbDataRaw.append(READ_SET_ALARM_A_MESSAGE_TYPE);
+    usbDataRaw.append(date);
+    usbDataRaw.append(hour);
+    usbDataRaw.append(minute);
+    usbDataRaw.append(enable);
+    return emit signalTransmitUSBData(usbDataRaw);
+}
+
+int MessageServiceThread::slotSetAlarmBToSTM32PLC(uint8_t weekDay, uint8_t hour, uint8_t minute, uint8_t enable){
+    QByteArray usbDataRaw;
+    usbDataRaw.append(READ_SET_ALARM_B_MESSAGE_TYPE);
+    usbDataRaw.append(weekDay);
+    usbDataRaw.append(hour);
+    usbDataRaw.append(minute);
+    usbDataRaw.append(enable);
+    return emit signalTransmitUSBData(usbDataRaw);
+}
+
 int MessageServiceThread::slotAskAnalogInputGainsFromSTM32(uint8_t sdadc){
     /* Ask STM32 */
     QByteArray usbDataRaw;
@@ -156,6 +203,27 @@ int MessageServiceThread::slotAskPWMPrescalersFromSTM32(){
     /* Ask STM32 */
     QByteArray usbDataRaw;
     usbDataRaw.append(SEND_BACK_PWM_PRESCALERS_MESSAGE_TYPE);
+    return emit signalTransmitUSBData(usbDataRaw);
+}
+
+int MessageServiceThread::slotAskDateTimeFromSTM32PLC(){
+    /* Ask STM32 */
+    QByteArray usbDataRaw;
+    usbDataRaw.append(SEND_BACK_DATE_TIME_MESSAGE_TYPE);
+    return emit signalTransmitUSBData(usbDataRaw);
+}
+
+int MessageServiceThread::slotAskAlarmAFromSTM32PLC(){
+    /* Ask STM32 */
+    QByteArray usbDataRaw;
+    usbDataRaw.append(SEND_BACK_ALARM_A_MESSAGE_TYPE);
+    return emit signalTransmitUSBData(usbDataRaw);
+}
+
+int MessageServiceThread::slotAskAlarmBFromSTM32PLC(){
+    /* Ask STM32 */
+    QByteArray usbDataRaw;
+    usbDataRaw.append(SEND_BACK_ALARM_B_MESSAGE_TYPE);
     return emit signalTransmitUSBData(usbDataRaw);
 }
 
@@ -228,6 +296,49 @@ uint32_t MessageServiceThread::readCanBusMessageFromSTM32PLC(uint8_t data[], uin
 
     /* Update the CAN terminal */
     emit signalUpdateCANTerminalWindowWithCANData(RX_CAN_BUS_MESSAGE);
+
+    return byteIndex;
+}
+
+uint32_t MessageServiceThread::readDateTimeFromSTM32PLC(uint8_t data[], uint32_t byteIndex){
+    /* Get date time */
+    uint8_t year = data[byteIndex++];
+    uint8_t month = data[byteIndex++];
+    uint8_t date = data[byteIndex++];
+    uint8_t weekDay = data[byteIndex++];
+    uint8_t hour = data[byteIndex++];
+    uint8_t minute = data[byteIndex++];
+
+    /* Update */
+    emit signalSendDateTime(year, month, date, weekDay, hour, minute);
+
+    return byteIndex;
+}
+
+uint32_t MessageServiceThread::readAlarmAFromSTM32PLC(uint8_t data[], uint32_t byteIndex){
+    /* Get alarm A */
+    uint8_t date = data[byteIndex++];
+    uint8_t hour = data[byteIndex++];
+    uint8_t minute = data[byteIndex++];
+    uint8_t enabled = data[byteIndex++];
+    uint8_t activated = data[byteIndex++];
+
+    /* Update */
+    emit signalSendAlarmA(date, hour, minute, enabled, activated);
+
+    return byteIndex;
+}
+
+uint32_t MessageServiceThread::readAlarmBFromSTM32PLC(uint8_t data[], uint32_t byteIndex){
+    /* Get Alarm B */
+    uint8_t weekDay = data[byteIndex++];
+    uint8_t hour = data[byteIndex++];
+    uint8_t minute = data[byteIndex++];
+    uint8_t enabled = data[byteIndex++];
+    uint8_t activated = data[byteIndex++];
+
+    /* Update */
+    emit signalSendAlarmB(weekDay, hour, minute, enabled, activated);
 
     return byteIndex;
 }

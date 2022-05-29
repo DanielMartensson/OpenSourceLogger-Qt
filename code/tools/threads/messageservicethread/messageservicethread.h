@@ -33,13 +33,22 @@ signals:
     void signalSendAnalogGains(uint8_t analogGain[]);
     void signalSendPWMPrescalers(uint16_t pwmPrescaler[]);
     void signalUpdateCANTerminalWindowWithCANData(uint8_t CAN_DATA[]);
+    void signalSendDateTime(uint8_t year, uint8_t month, uint8_t date, uint8_t weekDay, uint8_t hour, uint8_t minute);
+    void signalSendAlarmA(uint8_t date, uint8_t hour, uint8_t minute, uint8_t enabled, uint8_t activated);
+    void signalSendAlarmB(uint8_t weekDay, uint8_t hour, uint8_t minute, uint8_t enabled, uint8_t activated);
 
 public slots:
     void slotSetThreadActive(bool active);
     int slotSetAnalogInputGainToSTM32PLC(uint8_t sdadc, uint8_t configurationIndex, uint8_t gain);
     int slotSetPWMPrescalerToSTM32PLC(uint8_t pwmPeripheral, uint16_t prescaler);
+    int slotSetDateTimeToSTM32PLC(uint8_t year, uint8_t month, uint8_t date, uint8_t weekDay, uint8_t hour, uint8_t minute);
+    int slotSetAlarmAToSTM32PLC(uint8_t date, uint8_t hour, uint8_t minute, uint8_t enable);
+    int slotSetAlarmBToSTM32PLC(uint8_t weekDay, uint8_t hour, uint8_t minute, uint8_t enable);
     int slotAskAnalogInputGainsFromSTM32(uint8_t sdadc);
     int slotAskPWMPrescalersFromSTM32();
+    int slotAskDateTimeFromSTM32PLC();
+    int slotAskAlarmAFromSTM32PLC();
+    int slotAskAlarmBFromSTM32PLC();
     void slotSetPWMSignal(int index, uint16_t value);
     void slotSetAnalogSingleOutputSignal(int index, uint16_t value);
     void slotReadUSBData(uint8_t data[], uint32_t length);
@@ -76,6 +85,9 @@ private:
     uint32_t readPWMPrescalersFromSTM32PLC(uint8_t data[], uint32_t byteIndex);
     uint32_t readMeasurementsFromSTM32PLC(uint8_t data[], uint32_t byteIndex);
     uint32_t readCanBusMessageFromSTM32PLC(uint8_t data[], uint32_t byteIndex);
+    uint32_t readDateTimeFromSTM32PLC(uint8_t data[], uint32_t byteIndex);
+    uint32_t readAlarmAFromSTM32PLC(uint8_t data[], uint32_t byteIndex);
+    uint32_t readAlarmBFromSTM32PLC(uint8_t data[], uint32_t byteIndex);
 
 };
 
