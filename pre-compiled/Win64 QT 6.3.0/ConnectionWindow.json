@@ -4,6 +4,6 @@
     "hostnameLineEdit": "127.0.0.1",
     "passwordLineEdit": "myPassword",
     "portSpinBox": 3306,
-    "selectedUSBportComboBox": "",
+    "selectedUSBportComboBox": "COM6",
     "usernameLineEdit": "myUser"
 }

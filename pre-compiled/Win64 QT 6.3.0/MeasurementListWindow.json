@@ -1,0 +1,22 @@
+{
+    "csvSaveFileLocationLineEdit": "C:/Users/danie/Downloads/test.csv",
+    "maxMeasurementList": [
+        1
+    ],
+    "maxRawValueList": [
+        1
+    ],
+    "measurementCommentLineEdit": "uhu",
+    "measurementNameList": [
+        "DAC0"
+    ],
+    "measurementSourceTypeList": [
+        "DAC0"
+    ],
+    "minMeasurementList": [
+        0
+    ],
+    "minRawValueList": [
+        0
+    ]
+}
