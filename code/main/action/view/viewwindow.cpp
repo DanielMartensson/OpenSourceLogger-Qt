@@ -101,7 +101,7 @@ void ViewWindow::on_plotDataPushButton_clicked()
     }
 
     /* Close the progress bar */
-    progress.setValue(toRow);
+    progress.close();
 }
 
 
@@ -170,7 +170,7 @@ void ViewWindow::on_downloadDataPushButton_clicked()
         csvFile.close();
 
         /* Close the progress bar */
-        progress.setValue(toRow);
+        progress.cancel();
     }
 }
 
@@ -224,7 +224,7 @@ void ViewWindow::on_deleteDataPushButton_clicked()
         }
 
         /* Close the progress bar */
-        progress.setValue(fromRow);
+        progress.cancel();
 
     }else{
         return;

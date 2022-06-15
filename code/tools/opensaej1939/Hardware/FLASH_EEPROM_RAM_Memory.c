@@ -28,6 +28,12 @@ void FLASH_EEPROM_RAM_Memory(uint16_t *number_of_requested_bytes, uint8_t pointe
 	/* Implement your memory handler function for the AVR platform */
 #else
 	/* If no processor are used, use internal feedback for debugging */
+    (void)number_of_requested_bytes;
+    (void)pointer_type;
+    (void)pointer;
+    (void)pointer_extension;
+    (void)key;
+    (void)raw_binary_data;
 	*command = STATUS_DM15_PROCEED;
 #endif
 }

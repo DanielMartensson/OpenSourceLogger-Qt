@@ -370,13 +370,11 @@ void MessageServiceThread::sendControlSignalsToSTM32PLC(){
     /* Send PWM and analog single output */
     QByteArray usbDataRaw;
     usbDataRaw.append(READ_CONTROL_SIGNALS_MESSAGE_TYPE);
-    int pwmSize = sizeof(PWM) / sizeof(PWM[0]);
-    for(int i = 0; i < pwmSize; i++){
-        usbDataRaw.append(PWM[i] >> 8);
-        usbDataRaw.append(PWM[i]);
+    for(int i = 0; i < PWM_LENGTH; i++){
+        usbDataRaw.append(pwmControl[i] >> 8);
+        usbDataRaw.append(pwmControl[i]);
     }
-    int analogSingleOutputSize = sizeof(analogSingleOutput) / sizeof(analogSingleOutput[0]);
-    for(int i = 0; i < analogSingleOutputSize; i++){
+    for(int i = 0; i < DAC_LENGTH; i++){
         usbDataRaw.append(analogSingleOutput[i] >> 8);
         usbDataRaw.append(analogSingleOutput[i]);
     }
@@ -410,7 +408,7 @@ int16_t MessageServiceThread::getEncoderInput(int index){
 }
 
 uint16_t MessageServiceThread::getPWMControl(int index){
-    return PWM[index];
+    return pwmControl[index];
 }
 
 uint16_t MessageServiceThread::getAnalogSingleOutput(int index){

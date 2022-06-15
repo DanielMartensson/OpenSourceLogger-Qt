@@ -97,7 +97,7 @@ void UploadWindow::on_uploadMeasurementPushButton_clicked()
         }
 
         /* This closes the progress bar */
-        progress.setValue(packages);
+        progress.close();
 
         /* Message box for OK */
         QMessageBox::information(this, "Data", "Inserted into the database with measurement ID: " + QString::number(measurementID));
