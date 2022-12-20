@@ -47,47 +47,47 @@ It's the same step for Linux and Mac. Just other extensions of the files.
 
 Main view window will show the measurements in real time
 
-![a](https://raw.githubusercontent.com/DanielMartensson/OpenSourceLogger/main/pictures/MainView.png)
+![a](https://raw.githubusercontent.com/DanielMartensson/OpenSourceLogger-Qt/main/pictures/MainView.png)
 
 Control window is the user panel for sending CAN-bus signals or regular control signals
 
-![a](https://raw.githubusercontent.com/DanielMartensson/OpenSourceLogger/main/pictures/ControlWindow.PNG)
+![a](https://raw.githubusercontent.com/DanielMartensson/OpenSourceLogger-Qt/main/pictures/ControlWindow.PNG)
 
 OpenSourceLogger is also an ECU for CAN-bus
 
-![a](https://raw.githubusercontent.com/DanielMartensson/OpenSourceLogger/main/pictures/CANSettingsWindow.PNG)
+![a](https://raw.githubusercontent.com/DanielMartensson/OpenSourceLogger-Qt/main/pictures/CANSettingsWindow.PNG)
 
 But to make this work, you need to connect a to USB and database
 
-![a](https://raw.githubusercontent.com/DanielMartensson/OpenSourceLogger/main/pictures/ConnectionWindow.PNG)
+![a](https://raw.githubusercontent.com/DanielMartensson/OpenSourceLogger-Qt/main/pictures/ConnectionWindow.PNG)
 
 Add a new measurement variable
 
-![a](https://raw.githubusercontent.com/DanielMartensson/OpenSourceLogger/main/pictures/MeasurementListWindow.PNG)
+![a](https://raw.githubusercontent.com/DanielMartensson/OpenSourceLogger-Qt/main/pictures/MeasurementListWindow.PNG)
 
 Change the STM32 ADC and PWM prescalar settings
 
-![a](https://raw.githubusercontent.com/DanielMartensson/OpenSourceLogger/main/pictures/STM32Window.PNG)
+![a](https://raw.githubusercontent.com/DanielMartensson/OpenSourceLogger-Qt/main/pictures/STM32Window.PNG)
 
 This is the PCB board
 
-![a](https://raw.githubusercontent.com/DanielMartensson/OpenSourceLogger/main/pictures/PCB.PNG)
+![a](https://raw.githubusercontent.com/DanielMartensson/OpenSourceLogger-Qt/main/pictures/PCB.PNG)
 
 SAE J1939 CAN bus protocol
 
-![a](https://raw.githubusercontent.com/DanielMartensson/OpenSourceLogger/main/pictures/SaeJ1939.PNG)
+![a](https://raw.githubusercontent.com/DanielMartensson/OpenSourceLogger-Qt/main/pictures/SaeJ1939.PNG)
 
 Upload measurement to the datbase
 
-![a](https://raw.githubusercontent.com/DanielMartensson/OpenSourceLogger/main/pictures/UploadWindow.PNG)
+![a](https://raw.githubusercontent.com/DanielMartensson/OpenSourceLogger-Qt/main/pictures/UploadWindow.PNG)
 
 View past measurements
 
-![a](https://raw.githubusercontent.com/DanielMartensson/OpenSourceLogger/main/pictures/ViewWindow.PNG)
+![a](https://raw.githubusercontent.com/DanielMartensson/OpenSourceLogger-Qt/main/pictures/ViewWindow.PNG)
 
 And the results
 
-![a](https://raw.githubusercontent.com/DanielMartensson/OpenSourceLogger/main/pictures/FromDatabase.PNG)
+![a](https://raw.githubusercontent.com/DanielMartensson/OpenSourceLogger-Qt/main/pictures/FromDatabase.PNG)
 
 # Status of the project
 It's working and I don't have any plans right now to add new functionality(perhaps in the future if it's needed e.g CANopen). Right now everything is working and it will remain like that for now.
